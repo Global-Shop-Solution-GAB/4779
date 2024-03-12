@@ -1,0 +1,243 @@
+Program.Sub.ScreenSU.Start
+Gui.FormICD..Create
+Gui.FormICD..Caption("ICD Codes Maintenance")
+Gui.FormICD..Size(6465,8640)
+Gui.FormICD..MinX(0)
+Gui.FormICD..MinY(0)
+Gui.FormICD..Position(0,0)
+Gui.FormICD..BackColor(-2147483633)
+Gui.FormICD..MousePointer(0)
+Gui.FormICD..Event(UnLoad,FormICD_UnLoad)
+Gui.FormICD.lblICD.Create(Label,"ICD Code",True,1935,255,0,150,270,True,0,"Arial",8,-2147483633,0)
+Gui.FormICD.txtICD.Create(TextBox,"",True,5070,300,0,150,525,True,0,"Arial",8,-2147483643,1)
+Gui.FormICD.txtICD.MaxLength(50)
+Gui.FormICD.txtICD.Event(GotFocus,txtICD_GotFocus)
+Gui.FormICD.cmdAdd.Create(Button)
+Gui.FormICD.cmdAdd.Size(855,375)
+Gui.FormICD.cmdAdd.Position(5385,480)
+Gui.FormICD.cmdAdd.Caption("Add")
+Gui.FormICD.cmdAdd.Event(Click,cmdAdd_Click)
+Gui.FormICD.GsGridICD.Create(GsGridControl)
+Gui.FormICD.GsGridICD.Size(6075,6570)
+Gui.FormICD.GsGridICD.Position(165,990)
+Gui.FormICD.GsGridICD.Event(RowCellClick,GsGridICD_RowCellClick)
+Gui.FormICD.cmdSave.Create(Button)
+Gui.FormICD.cmdSave.Size(855,375)
+Gui.FormICD.cmdSave.Position(165,7680)
+Gui.FormICD.cmdSave.Caption("Save")
+Gui.FormICD.cmdSave.Event(Click,cmdSave_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.CallSub(Get_Data)
+F.Intrinsic.Control.CallSub(Set_Properties)
+
+Gui.FormICD..Show
+
+Gui.FormICD..AlwaysOnTop(True)
+Gui.FormICD..AlwaysOnTop(False)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.GsGridICD_RowCellClick.Start
+F.Intrinsic.Control.SetErrorHandler("GsGridICD_RowCellClick_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.If(V.Args.Column.UCase,=,"DELETE_ROW")
+	F.Data.DataTable.DeleteRow("ICD",V.Args.RowIndex)
+	F.Data.DataTable.AcceptChanges("ICD")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("GsGridICD_RowCellClick_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.GsGridICD_RowCellClick.End
+
+Program.Sub.FormICD_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("FormICD_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("FormICD_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+Program.Sub.FormICD_UnLoad.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdSave_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+gui.FormICD.GsGridICD.SuspendLayout
+
+F.ODBC.Connection!Con.Execute("Delete From GCG_4779_ICD_Codes")
+
+F.Data.DataTable.SaveToDB("ICD","con","GCG_4779_ICD_Codes","Rec_No",256,"Rec_No@!@Rec_No*!*ICD_Codes@!@ICD_Codes")
+
+F.Data.DataTable.CreateFromSQL("ICDTemp","con","Select Rec_No, ICD_Codes From GCG_4779_ICD_Codes Order by Rec_No",True)
+
+F.Data.DataTable.DeleteRow("ICD")
+F.Data.DataTable.AcceptChanges("ICD")
+
+F.Data.DataTable.Merge("ICDTemp","ICD",False,2)
+
+F.Data.DataTable.Close("ICDTemp")
+
+gui.FormICD.GsGridICD.ResumeLayout
+
+F.Intrinsic.UI.Msgbox("ICD Codes Saved...........")
+
+F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdSave_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.txtICD_GotFocus.Start
+F.Intrinsic.Control.SetErrorHandler("txtICD_GotFocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+gui.FormICD.txtICD.SelectAll
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("txtICD_GotFocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.txtICD_GotFocus.End
+
+Program.Sub.Get_Data.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Data_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sSql.Declare(String,"")
+
+F.ODBC.Connection!con.OpenCompanyConnection
+
+F.Data.DataTable.CreateFromSQL("ICD","con","Select Rec_No, ICD_Codes From GCG_4779_ICD_Codes Order by Rec_No",True)
+
+F.Data.DataTable.AddColumn("ICD","Delete_Row",String)
+
+F.ODBC.Connection!con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Data_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Get_Data.End
+
+Program.Sub.Set_Properties.Start
+F.Intrinsic.Control.SetErrorHandler("Set_Properties_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+gui.FormICD.GsGridICD.AddGridviewFromDatatable("GICD","ICD")
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","Visible",False)
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","AllowEdit",False)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","ICD_Codes","AllowEdit",True)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Delete_Row","AllowEdit",False)
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","ReadOnly",True)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","ICD_Codes","ReadOnly",False)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Delete_Row","ReadOnly",True)
+
+gui.FormICD.GsGridICD.ColumnEdit("GICD","Delete_Row","EditorButton","Delete")
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","ICD_Codes","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Delete_Row","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","ICD_Codes","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Delete_Row","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Rec_No","Caption","Record No")
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","ICD_Codes","Caption","ICD Codes")
+gui.FormICD.GsGridICD.SetColumnProperty("GICD","Delete_Row","Caption"," ")
+
+gui.FormICD.GsGridICD.MainView("GICD")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Set_Properties_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Set_Properties.End
+
+Program.Sub.cmdAdd_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdAdd_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sType.Declare(String,"")
+
+V.Local.sType.Set(V.Screen.FormICD!txtICD.Text)
+
+F.Intrinsic.Control.If(V.Local.sType.Trim,<>,"")
+	F.Data.DataTable.AddRow("ICD","Rec_No",0,"ICD_Codes",v.Local.sType.Trim)
+	gui.FormICD.txtICD.Text("")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdAdd_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_ICD_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormICD_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdAdd_Click.End
