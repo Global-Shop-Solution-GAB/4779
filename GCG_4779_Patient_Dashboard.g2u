@@ -1,0 +1,474 @@
+Program.Sub.ScreenSU.Start
+Gui.FormPatient..Create
+Gui.FormPatient..Caption("Patient Information Dashboard")
+Gui.FormPatient..Size(15360,10695)
+Gui.FormPatient..MinX(0)
+Gui.FormPatient..MinY(0)
+Gui.FormPatient..Position(0,0)
+Gui.FormPatient..BackColor(-2147483633)
+Gui.FormPatient..MousePointer(0)
+Gui.FormPatient..Event(UnLoad,FormPatient_UnLoad)
+Gui.FormPatient.GsGridPatient.Create(GsGridControl)
+Gui.FormPatient.GsGridPatient.Size(15060,9465)
+Gui.FormPatient.GsGridPatient.Position(105,165)
+Gui.FormPatient.GsGridPatient.Anchor(15)
+Gui.FormPatient.GsGridPatient.Event(RowCellClick,GsGridPatient_RowCellClick)
+Gui.FormPatient.cmdSave.Create(Button)
+Gui.FormPatient.cmdSave.Size(855,375)
+Gui.FormPatient.cmdSave.Position(105,9765)
+Gui.FormPatient.cmdSave.Anchor(6)
+Gui.FormPatient.cmdSave.Caption("Save")
+Gui.FormPatient.cmdSave.Event(Click,cmdSave_Click)
+Gui.FormPatient.cmdRefresh.Create(Button)
+Gui.FormPatient.cmdRefresh.Size(855,375)
+Gui.FormPatient.cmdRefresh.Position(14310,9765)
+Gui.FormPatient.cmdRefresh.Anchor(10)
+Gui.FormPatient.cmdRefresh.Caption("REFRESH")
+Gui.FormPatient.cmdRefresh.Event(Click,cmdRefresh_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.CallSub(Get_Data)
+F.Intrinsic.Control.CallSub(Set_Properties)
+
+Gui.FormPatient..Show
+
+Gui.FormPatient..AlwaysOnTop(True)
+Gui.FormPatient..AlwaysOnTop(False)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.FormPatient_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("FormPatient_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("FormPatient_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+Program.Sub.FormPatient_UnLoad.End
+
+Program.Sub.Get_Data.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Data_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+F.Data.DataTable.CreateFromSQL("Patient","con","Select rtrim(FNAME) as FNAME, MNAME, rtrim(LNAME) as LNAME, rtrim(PHONE) as PHONE, rtrim(ADDRESS1L1) as ADDRESS1L1, rtrim(ADDRESS1L2) as ADDRESS1L2, rtrim(CITY1) as CITY1, rtrim(STATE1) STATE1, rtrim(ZIP_CODE1) as ZIP_CODE1, rtrim(COUNTRY1) as COUNTRY1, GENDER, DATE_BIRTH, rtrim(ONUMBER) as ONUMBER, rtrim(QNUMBER) as QNUMBER, rtrim(WONUMBER) as WONUMBER, rtrim(DOCTOR) as DOCTOR, rtrim(CUSTOMER) as CUSTOMER, CREATE_DATE, STAGED, STAGED_DATE, REVISION, rtrim(PREV_CASES) as PREV_CASES, rtrim(REV_TYPE) as REV_TYPE, rtrim(ICD_CODE) as ICD_CODE, rtrim(PLAN_SERV) as PLAN_SERV, rtrim(MRN_NUM)as MRN_NUM, rtrim(EMAIL_ADD) as EMAIL_ADD From GCG_4779_PATIENT",True)
+
+F.Data.DataView.Create("Patient","VPatient",16,"","")
+
+F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Data_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Get_Data.End
+
+Program.Sub.Set_Properties.Start
+F.Intrinsic.Control.SetErrorHandler("Set_Properties_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sRet.Declare(String,"")
+
+Gui.FormPatient.GsGridPatient.AddGridviewFromDatatable("GPat","Patient")
+Gui.FormPatient.GsGridPatient.SetGridviewProperty("GPat","Showgrouppanel",True)
+Gui.FormPatient.GsGridPatient.SetGridviewProperty("GPat","Multiselect",False)
+Gui.FormPatient.GsGridPatient.SetGridviewProperty("GPat","OptionsSelectionEnableAppearanceFocusedRow",False)
+Gui.FormPatient.GsGridPatient.SetGridviewProperty("GPat","OptionsViewShowAutoFilterRow",True)
+Gui.FormPatient.GsGridPatient.SetGridviewProperty("GPat","OptionsViewColumnAutoWidth",False)
+	
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","GENDER","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DOCTOR","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CUSTOMER","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","ReadOnly",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REVISION","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REV_TYPE","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ICD_CODE","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PLAN_SERV","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","ReadOnly",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","ReadOnly",False)
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","GENDER","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DOCTOR","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CUSTOMER","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","AllowEdit",False)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REVISION","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REV_TYPE","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ICD_CODE","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PLAN_SERV","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","AllowEdit",True)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","AllowEdit",True)
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","Caption","First Name")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","Caption","MI")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","Caption","Last Name")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","Caption","Main Phone #")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","Caption","Address")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","Caption","Address Line 2")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","Caption","City")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","Caption","State")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","Caption","Zip Code")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","Caption","Country")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","GENDER","Caption","Gender")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","Caption","Date of Birth")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","Caption","ONumber")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","Caption","QNumber")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","Caption","WONumber")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DOCTOR","Caption","Doctor")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CUSTOMER","Caption","Customer")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","Caption","Created Date")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED","Caption","Staged")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","Caption","Date Staged")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REVISION","Caption","Revision")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","Caption","Previous Cases")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REV_TYPE","Caption","Revision Type")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ICD_CODE","Caption","ICD Code")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PLAN_SERV","Caption","Planning Service")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","Caption","MRN #")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","Caption","Email Address")
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","DisplayCustomDatetime","d")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","DisplayCustomDatetime","d")
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","DisplayCustomDatetime","d")
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","GENDER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DOCTOR","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CUSTOMER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REVISION","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REV_TYPE","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ICD_CODE","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PLAN_SERV","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","GENDER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DATE_BIRTH","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","DOCTOR","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CUSTOMER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CREATE_DATE","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STAGED_DATE","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REVISION","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","REV_TYPE","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ICD_CODE","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PLAN_SERV","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ONUMBER","CellForeColor",V.Color.Blue)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","QNUMBER","CellForeColor",V.Color.Blue)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","WONUMBER","CellForeColor",V.Color.Blue)
+
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","FNAME","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MNAME","MaxLength",1)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","LNAME","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PHONE","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L1","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ADDRESS1L2","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","CITY1","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","STATE1","MaxLength",2)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","ZIP_CODE1","MaxLength",9)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","COUNTRY1","MaxLength",30)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","PREV_CASES","MaxLength",70)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","MRN_NUM","MaxLength",20)
+Gui.FormPatient.GsGridPatient.SetColumnProperty("GPat","EMAIL_ADD","MaxLength",100)
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+F.ODBC.Connection!Con.ExecuteAndReturn("Select Distinct rtrim(Revision_Type) From GCG_4779_Rev_Type Order by Rec_No",V.Local.sRet)
+F.Intrinsic.String.Replace(V.Local.sRet,"#$#","*!*",V.Local.sRet)
+
+Gui.FormPatient.GsGridPatient.ColumnEdit("GPat","REV_TYPE","Dropdownlist",V.Local.sRet)
+
+F.ODBC.Connection!Con.ExecuteAndReturn("Select Distinct rtrim(ICD_CODES) From GCG_4779_ICD_Codes Order by Rec_No",V.Local.sRet)
+F.Intrinsic.String.Replace(V.Local.sRet,"#$#","*!*",V.Local.sRet)
+
+Gui.FormPatient.GsGridPatient.ColumnEdit("GPat","ICD_CODE","Dropdownlist",V.Local.sRet)
+
+F.ODBC.Connection!Con.ExecuteAndReturn("Select Distinct rtrim(Plan_Serv) From GCG_4779_Plan_Serv Order by Rec_No",V.Local.sRet)
+F.Intrinsic.String.Replace(V.Local.sRet,"#$#","*!*",V.Local.sRet)
+
+Gui.FormPatient.GsGridPatient.ColumnEdit("GPat","PLAN_SERV","Dropdownlist",V.Local.sRet)
+
+Gui.FormPatient.GsGridPatient.ColumnEdit("GPat","Gender","Dropdownlist","Male*!*Female")
+
+F.ODBC.Connection!Con.Close
+
+Gui.FormPatient.GsGridPatient.MainView("GPat")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Set_Properties_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Set_Properties.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdSave_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.i.Declare(Long,0)
+V.Local.sSql.Declare(String,"")
+
+F.Data.DataView.ToDataTable("Patient","VPatient","Temp")
+F.Data.DataView.ToDataTable("Patient","VPatient","PSave")
+F.Data.DataTable.DeleteRow("PSave")
+F.Data.DataTable.AcceptChanges("PSave")
+
+F.Intrinsic.Control.If(V.DataTable.Temp.RowCount--,<>,-1)
+	Gui.FormPatient..Enabled(False)
+	F.ODBC.Connection!con.OpenCompanyConnection
+	
+	F.Intrinsic.UI.InvokeWaitDialog("Saving Modified Records")
+	
+	F.Intrinsic.Control.For(V.Local.i,0,V.DataTable.Temp.RowCount--,1)
+		F.Intrinsic.Control.If(V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,=,"","AND",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,=,"",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,=,"")
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where (ONUMBER = '{0}' or ONUMBER is NULL) and (QNUMBER = '{1}' or QNUMBER is NULL) and (WONUMBER = '{2}'  or WONUMBER is NULL)",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.ElseIf(V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,<>,"","AND",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,=,"",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,=,"")
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where ONUMBER = '{0}' and (QNUMBER = '{1}' or QNUMBER is NULL) and (WONUMBER = '{2}'  or WONUMBER is NULL)",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.ElseIf(V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,<>,"","AND",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,<>,"",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,=,"")
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where ONUMBER = '{0}' and QNUMBER = '{1}' and (WONUMBER = '{2}'  or WONUMBER is NULL)",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.ElseIf(V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,=,"","AND",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,<>,"",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,<>,"")
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where (ONUMBER = '{0}' or ONUMBER is NULL) and QNUMBER = '{1}' and WONUMBER = '{2}'",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.ElseIf(V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,<>,"","AND",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,=,"",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,<>,"")
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where ONUMBER = '{0}' and (QNUMBER = '{1}' or QNUMBER is NULL) and WONUMBER = '{2}'",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.Else
+			F.Intrinsic.String.Build("Delete From GCG_4779_Patient Where ONUMBER = '{0}' and QNUMBER = '{1}' and WONUMBER = '{2}'",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,V.Local.sSql)
+		F.Intrinsic.Control.EndIf
+		F.ODBC.Connection!Con.Execute(V.Local.sSql)
+		F.Data.DataTable.AddRow("PSave","FNAME",V.DataTable.Temp(V.Local.i).FNAME!FieldValTrim,"MNAME",V.DataTable.Temp(V.Local.i).MNAME!FieldValTrim,"LNAME",V.DataTable.Temp(V.Local.i).LNAME!FieldValTrim,"PHONE",V.DataTable.Temp(V.Local.i).PHONE!FieldValTrim)
+		F.Data.DataTable.SetValue("PSave",-1,"ADDRESS1L1",V.DataTable.Temp(V.Local.i).ADDRESS1L1!FieldValTrim,"ADDRESS1L2",V.DataTable.Temp(V.Local.i).ADDRESS1L2!FieldValTrim,"CITY1",V.DataTable.Temp(V.Local.i).CITY1!FieldValTrim,"STATE1",V.DataTable.Temp(V.Local.i).STATE1!FieldValtrim)
+		F.Data.DataTable.SetValue("PSave",-1,"ZIP_CODE1",V.DataTable.Temp(V.Local.i).ZIP_CODE1!FieldValTrim,"COUNTRY1",V.DataTable.Temp(V.Local.i).COUNTRY1!FieldValTrim,"GENDER",V.DataTable.Temp(V.Local.i).GENDER!FieldValTrim,"DATE_BIRTH",V.DataTable.Temp(V.Local.i).DATE_BIRTH!FieldVal)
+		F.Data.DataTable.SetValue("PSave",-1,"ONUMBER",V.DataTable.Temp(V.Local.i).ONUMBER!FieldValTrim,"QNUMBER",V.DataTable.Temp(V.Local.i).QNUMBER!FieldValTrim,"WONUMBER",V.DataTable.Temp(V.Local.i).WONUMBER!FieldValTrim,"DOCTOR",V.DataTable.Temp(V.Local.i).DOCTOR!FieldVal)
+		F.Data.DataTable.SetValue("PSave",-1,"CUSTOMER",V.DataTable.Temp(V.Local.i).CUSTOMER!FieldValTrim,"CREATE_DATE",V.DataTable.Temp(V.Local.i).CREATE_DATE!FieldVal,"STAGED",V.DataTable.Temp(V.Local.i).STAGED!FieldVal,"STAGED_DATE",V.DataTable.Temp(V.Local.i).STAGED_DATE!FieldVal)
+		F.Data.DataTable.SetValue("PSave",-1,"REVISION",V.DataTable.Temp(V.Local.i).REVISION!FieldVal,"PREV_CASES",V.DataTable.Temp(V.Local.i).PREV_CASES!FieldValTrim,"REV_TYPE",V.DataTable.Temp(V.Local.i).REV_TYPE!FieldValTrim,"ICD_CODE",V.DataTable.Temp(V.Local.i).ICD_CODE!FieldValtrim)
+		F.Data.DataTable.SetValue("PSave",-1,"PLAN_SERV",V.DataTable.Temp(V.Local.i).PLAN_SERV!FieldValTrim,"MRN_NUM",V.DataTable.Temp(V.Local.i).MRN_NUM!FieldValTrim,"EMAIL_ADD",V.DataTable.Temp(V.Local.i).EMAIL_ADD!FieldValTrim)
+		
+		F.Data.DataTable.SaveToDB("PSave","con","GCG_4779_Patient","ONUMBER*!*QNUMBER*!*WONUMBER",256,"FNAME@!@FNAME*!*MNAME@!@MNAME*!*LNAME@!@LNAME*!*PHONE@!@PHONE*!*ADDRESS1L1@!@ADDRESS1L1*!*ADDRESS1L2@!@ADDRESS1L2*!*CITY1@!@CITY1*!*STATE1@!@STATE1*!*ZIP_CODE1@!@ZIP_CODE1*!*COUNTRY1@!@COUNTRY1*!*GENDER@!@GENDER*!*DATE_BIRTH@!@DATE_BIRTH*!*ONUMBER@!@ONUMBER*!*QNUMBER@!@QNUMBER*!*WONUMBER@!@WONUMBER*!*DOCTOR@!@DOCTOR*!*CUSTOMER@!@CUSTOMER*!*CREATE_DATE@!@CREATE_DATE*!*STAGED@!@STAGED*!*STAGED_DATE@!@STAGED_DATE*!*REVISION@!@REVISION*!*PREV_CASES@!@PREV_CASES*!*REV_TYPE@!@REV_TYPE*!*ICD_CODE@!@ICD_CODE*!*PLAN_SERV@!@PLAN_SERV*!*MRN_NUM@!@MRN_NUM*!*EMAIL_ADD@!@EMAIL_ADD")
+		F.Data.DataTable.DeleteRow("PSave")
+		F.Data.DataTable.AcceptChanges("PSave")
+	F.Intrinsic.Control.Next(V.Local.i)
+	
+	F.ODBC.Connection!con.Close
+	
+	F.Intrinsic.UI.CloseWaitDialog
+	
+	F.Intrinsic.UI.Msgbox("Modified Records have been Saved..............")
+	Gui.FormPatient..Enabled(True)
+F.Intrinsic.Control.EndIf
+
+F.Data.DataTable.Close("Temp")
+F.Data.DataTable.Close("PSave")
+
+F.Data.DataTable.AcceptChanges("Patient")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdSave_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.GsGridPatient_RowCellClick.Start
+F.Intrinsic.Control.SetErrorHandler("GsGridPatient_RowCellClick_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sRet.Declare(String,"")
+V.Local.sParams.Declare(String,"")
+V.Local.sJob.Declare(String,"")
+v.Local.sTitles.Declare(String,"")
+v.Local.iWidths.Declare(Long,0)
+V.Local.iCol.Declare(Long,0)
+
+F.Intrinsic.Control.SelectCase(V.Args.Column.UCase)
+	F.Intrinsic.Control.Case("DOCTOR")
+		F.Intrinsic.UI.SetBrowserHotTypeAhead(True)
+		F.Intrinsic.String.Split("Identity No*!*First Name*!*Middle Int*!*Last Name","*!*",v.Local.sTitles)
+		F.Intrinsic.String.Split("1000*!*1000*!*1000*!*1000","*!*", v.Local.iWidths)
+		F.ODBC.Connection!Con.OpenCompanyConnection
+		F.Intrinsic.UI.Browser("Doctor Browser", "Con","Select IDENT, FNAME, MNAME, LNAME from GCG_4779_DOCTOR Where INACTIVEFLG = 0", V.Local.sTitles, v.Local.iWidths, v.Local.sRet)
+		F.ODBC.Connection!Con.Close
+		F.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+			Gui.FormPatient.GsGridPatient.GetColumnIndexByName("GPat",V.Args.Column,V.Local.iCol)
+			F.Intrinsic.String.Split(V.Local.sRet,"*!*",V.Local.sRet)
+			Gui.FormPatient.GsGridPatient.SetCellValue("GPat",V.Local.iCol,V.Args.RowIndex,V.Local.sRet.Long)
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.Case("ONUMBER")
+		Gui.FormPatient.GsGridPatient.GetCellValueByColumnName("GPat","ONUMBER",V.Args.RowIndex,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+			F.Intrinsic.String.ConcatCallWrapperArgs(V.Local.sRet,"O","*!*ZDR*!*",V.Local.sParams)
+			F.Global.General.CallWrapperASync(200000,V.Local.sParams)
+		F.Intrinsic.Control.EndIf
+		
+	F.Intrinsic.Control.Case("WONUMBER")
+		Gui.FormPatient.GsGridPatient.GetCellValueByColumnName("GPat","ONUMBER",V.Args.RowIndex,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+			F.Intrinsic.String.Split(V.Local.sRet,"-",V.Local.sRet)
+			V.Local.sRet.RedimPreserve(0,1)
+			F.Intrinsic.String.Build("7!*!{0}!*!{1}!*!A",V.Local.sRet(0),V.Local.sRet(1),V.Local.sParams)
+			F.Global.General.CallWrapperSync(450000,V.Local.sParams)
+		F.Intrinsic.Control.EndIf
+		
+	f.Intrinsic.Control.Case("QNUMBER")
+		Gui.FormPatient.GsGridPatient.GetCellValueByColumnName("GPat","ONUMBER",V.Args.RowIndex,V.Local.sRet)
+		F.Intrinsic.Control.If(V.Local.sRet,<>,"")
+			F.Intrinsic.String.ConcatCallWrapperArgs(V.Local.sRet,"O","*!*ZDR*!*",V.Local.sParams)
+			F.Global.General.CallWrapperASync(251000,V.Local.sParams)
+		F.Intrinsic.Control.EndIf
+		
+F.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("GsGridPatient_RowCellClick_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.GsGridPatient_RowCellClick.End
+
+Program.Sub.cmdRefresh_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdRefresh_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+Gui.FormPatient..Enabled(False)
+
+F.Intrinsic.UI.InvokeWaitDialog("Refreshing Patient Info.................")
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+Gui.FormPatient.GsGridPatient.SuspendLayout
+
+F.Data.DataTable.CreateFromSQL("TempPatient","con","Select rtrim(FNAME) as FNAME, MNAME, rtrim(LNAME) as LNAME, rtrim(PHONE) as PHONE, rtrim(ADDRESS1L1) as ADDRESS1L1, rtrim(ADDRESS1L2) as ADDRESS1L2, rtrim(CITY1) as CITY1, rtrim(STATE1) STATE1, rtrim(ZIP_CODE1) as ZIP_CODE1, rtrim(COUNTRY1) as COUNTRY1, GENDER, DATE_BIRTH, rtrim(ONUMBER) as ONUMBER, rtrim(QNUMBER) as QNUMBER, rtrim(WONUMBER) as WONUMBER, rtrim(DOCTOR) as DOCTOR, rtrim(CUSTOMER) as CUSTOMER, CREATE_DATE, STAGED, STAGED_DATE, REVISION, rtrim(PREV_CASES) as PREV_CASES, rtrim(REV_TYPE) as REV_TYPE, rtrim(ICD_CODE) as ICD_CODE, rtrim(PLAN_SERV) as PLAN_SERV, rtrim(MRN_NUM)as MRN_NUM, rtrim(EMAIL_ADD) as EMAIL_ADD From GCG_4779_PATIENT",True)
+
+F.Data.DataTable.DeleteRow("Patient")
+F.Data.DataTable.AcceptChanges("Patient")
+
+F.Data.DataTable.Merge("TempPatient","Patient",False,2)
+
+Gui.FormPatient.GsGridPatient.ResumeLayout
+
+F.Intrinsic.UI.CloseWaitDialog
+
+F.ODBC.Connection!Con.Close
+
+Gui.FormPatient..Enabled(True)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdRefresh_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Patient_Dashboard.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormPatient_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdRefresh_Click.End
