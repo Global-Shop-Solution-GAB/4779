@@ -1,0 +1,483 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Report..Create
+Gui.F_Report..Caption("Report Ranges")
+Gui.F_Report..Size(6435,4530)
+Gui.F_Report..MinX(0)
+Gui.F_Report..MinY(0)
+Gui.F_Report..Position(0,0)
+Gui.F_Report..BackColor(-2147483633)
+Gui.F_Report..MousePointer(0)
+Gui.F_Report..Event(UnLoad,Unload)
+Gui.F_Report.lbl1.Create(Label,"From Country",True,1155,255,0,105,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.lbl2.Create(Label,"To Country",True,1050,255,0,2760,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.txtFCountry.Create(TextBox,"",True,1830,300,0,105,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Report.cmdFCountry.Create(Button)
+Gui.F_Report.cmdFCountry.Size(510,375)
+Gui.F_Report.cmdFCountry.Position(2010,270)
+Gui.F_Report.cmdFCountry.Caption("^")
+Gui.F_Report.cmdFCountry.Event(Click,cmdFCountry_Click)
+Gui.F_Report.txtTCountry.Create(TextBox,"",True,1830,300,0,2760,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Report.cmdTCountry.Create(Button)
+Gui.F_Report.cmdTCountry.Size(480,375)
+Gui.F_Report.cmdTCountry.Position(4695,270)
+Gui.F_Report.cmdTCountry.Caption("^")
+Gui.F_Report.cmdTCountry.Event(Click,cmdTCountry_Click)
+Gui.F_Report.chkAllCountry.Create(CheckBox)
+Gui.F_Report.chkAllCountry.Size(1560,360)
+Gui.F_Report.chkAllCountry.Position(105,660)
+Gui.F_Report.chkAllCountry.Caption("All Countries")
+Gui.F_Report.chkAllCountry.Event(Click,chkAllCountry_Click)
+Gui.F_Report.lblFDate.Create(Label,"From Date",True,1710,255,0,105,1200,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.lblTDate.Create(Label,"To Date",True,1800,255,0,2130,1200,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.dtpFDate.Create(DatePicker)
+Gui.F_Report.dtpFDate.Size(1440,285)
+Gui.F_Report.dtpFDate.Position(105,1410)
+Gui.F_Report.dtpTDate.Create(DatePicker)
+Gui.F_Report.dtpTDate.Size(1440,285)
+Gui.F_Report.dtpTDate.Position(2130,1410)
+Gui.F_Report.chkAllDate.Create(CheckBox)
+Gui.F_Report.chkAllDate.Size(1170,360)
+Gui.F_Report.chkAllDate.Position(105,1815)
+Gui.F_Report.chkAllDate.Caption("All Dates")
+Gui.F_Report.chkAllDate.Event(Click,chkAllDate_Click)
+Gui.F_Report.lbl3.Create(Label,"From Doctor",True,1170,255,0,105,2445,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.lbl4.Create(Label,"To Doctor",True,1935,255,0,3315,2445,True,0,"Arial",8,-2147483633,0)
+Gui.F_Report.txtFDoctor.Create(TextBox,"",True,2385,300,0,105,2655,True,0,"Arial",8,-2147483643,1)
+Gui.F_Report.cmdFDoctor.Create(Button)
+Gui.F_Report.cmdFDoctor.Size(480,375)
+Gui.F_Report.cmdFDoctor.Position(2565,2610)
+Gui.F_Report.cmdFDoctor.Caption("^")
+Gui.F_Report.cmdFDoctor.Event(Click,cmdFDoctor_Click)
+Gui.F_Report.txtTDoctor.Create(TextBox,"",True,2385,300,0,3315,2655,True,0,"Arial",8,-2147483643,1)
+Gui.F_Report.cmdTDoctor.Create(Button)
+Gui.F_Report.cmdTDoctor.Size(450,375)
+Gui.F_Report.cmdTDoctor.Position(5790,2610)
+Gui.F_Report.cmdTDoctor.Caption("^")
+Gui.F_Report.cmdTDoctor.Event(Click,cmdTDoctor_Click)
+Gui.F_Report.cmdCreate.Create(Button)
+Gui.F_Report.cmdCreate.Size(855,375)
+Gui.F_Report.cmdCreate.Position(105,3765)
+Gui.F_Report.cmdCreate.Caption("Create")
+Gui.F_Report.cmdCreate.Event(Click,cmdCreate_Click)
+Gui.F_Report.chkAllDoctors.Create(CheckBox)
+Gui.F_Report.chkAllDoctors.Size(1560,360)
+Gui.F_Report.chkAllDoctors.Position(105,3015)
+Gui.F_Report.chkAllDoctors.Caption("All Doctors")
+Gui.F_Report.chkAllDoctors.Event(Click,chkAllDoctors_Click)
+Gui.F_Grid..Create
+Gui.F_Grid..Size(15360,8985)
+Gui.F_Grid..MinX(0)
+Gui.F_Grid..MinY(0)
+Gui.F_Grid..Position(0,0)
+Gui.F_Grid..BackColor(-2147483633)
+Gui.F_Grid..MousePointer(0)
+Gui.F_Grid..Event(UnLoad,Unload)
+Gui.F_Grid..Caption("Report View")
+Gui.F_Grid.GsGcGrid.Create(GsGridControl)
+Gui.F_Grid.GsGcGrid.Size(15195,8100)
+Gui.F_Grid.GsGcGrid.Position(0,0)
+Gui.F_Grid.GsGcGrid.Anchor(15)
+Gui.F_Grid.cmdExport.Create(Button)
+Gui.F_Grid.cmdExport.Size(855,375)
+Gui.F_Grid.cmdExport.Position(105,8265)
+Gui.F_Grid.cmdExport.Anchor(6)
+Gui.F_Grid.cmdExport.Caption("Export")
+Gui.F_Grid.cmdExport.Event(Click,cmdExport_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+
+f.ODBC.Connection!Con.OpenConnection(v.Ambient.PDSN,v.Ambient.PUser,v.Ambient.PPass)
+
+f.Intrinsic.Control.SelectCase(v.Caller.Switches)
+'f.Intrinsic.Control.SelectCase(3)
+	'New Patient
+	f.Intrinsic.Control.Case(1)
+		Gui.F_Report.txtFCountry.Enabled(False)
+		Gui.F_Report.cmdFCountry.Enabled(False)
+		Gui.F_Report.txtTCountry.Enabled(False)
+		Gui.F_Report.cmdTCountry.Enabled(False)
+		Gui.F_Report.chkAllCountry.Enabled(False)
+		Gui.F_Report.txtFDoctor.Enabled(False)
+		Gui.F_Report.cmdFDoctor.Enabled(False)
+		Gui.F_Report.txtTDoctor.Enabled(False)
+		Gui.F_Report.cmdTDoctor.Enabled(False)
+		Gui.F_Report.chkAllDoctors.Enabled(False)
+		Gui.F_Report.lblFDate.Caption("From Created Date")
+		Gui.F_Report.lblTDate.Caption("To Created Date")
+		Gui.F_Report..Caption("New Patient Report")
+	'Sales by Doctor
+	f.Intrinsic.Control.Case(2)
+		Gui.F_Report.txtFCountry.Enabled(False)
+		Gui.F_Report.cmdFCountry.Enabled(False)
+		Gui.F_Report.txtTCountry.Enabled(False)
+		Gui.F_Report.cmdTCountry.Enabled(False)
+		Gui.F_Report.chkAllCountry.Enabled(False)
+		Gui.F_Report.lblFDate.Caption("From Ship Date")
+		Gui.F_Report.lblTDate.Caption("To Ship Date")
+		Gui.F_Report..Caption("Sales by Doctor")
+	'Sales by Country/Doctor
+	f.Intrinsic.Control.Case(3)
+		Gui.F_Report..Caption("Sales by Country/Doctor")
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("RstCountry","SELECT DISTINCT COUNTRY1 FROM GCG_4779_DOCTOR WHERE COUNTRY1 = 'USA'")
+		f.Intrinsic.Control.If(v.ODBC.Con!RstCountry.EOF,=,False)
+			'We have a USA country so set the Country text boxes to USA
+			Gui.F_Report.txtTCountry.Text("USA")
+			Gui.F_Report.txtFCountry.Text("USA")
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!RstCountry.Close
+f.Intrinsic.Control.EndSelect
+Gui.F_Report..Show
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.TryCatch.Start
+v.Local.sError.Declare(String)
+Function.Intrinsic.String.Concat("Project: GCG_4779_EXCEL_REPORTS.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",v.Args.Sub,V.Ambient.NewLine,"Error Occurred ",V.Args.Error," with description ",v.Args.Desc,V.Local.sError)
+F.Intrinsic.UI.Msgbox(V.Local.sError)
+f.Intrinsic.Control.CallSub(Unload)
+Program.Sub.TryCatch.End
+
+Program.Sub.Unload.Start
+f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.End
+Program.Sub.Unload.End
+
+Program.Sub.cmdFCountry_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+
+'Create a browser for Country from Doctors
+f.Intrinsic.UI.Browser("From Country","Con","SELECT COUNTRY1 FROM GCG_4779_DOCTOR ORDER BY COUNTRY1 ASC","Country","1500",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+	Gui.F_Report.txtFCountry.Text(v.Local.sRet.Trim)
+	Gui.F_Report.txtTCountry.Text(v.Local.sRet.Trim)
+	Gui.F_Report.txtFDoctor.Text("")
+	Gui.F_Report.txtTDoctor.Text("")
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdFCountry_Click.End
+
+Program.Sub.cmdTCountry_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+
+'Create a browser for Country from Doctors
+f.Intrinsic.UI.Browser("From Country","Con","SELECT COUNTRY1 FROM GCG_4779_DOCTOR ORDER BY COUNTRY1 ASC","Country","1500",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+	Gui.F_Report.txtTCountry.Text(v.Local.sRet.Trim)
+	Gui.F_Report.txtFDoctor.Text("")
+	Gui.F_Report.txtTDoctor.Text("")
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdTCountry_Click.End
+
+Program.Sub.chkAllCountry_Click.Start
+F.Intrinsic.Control.Try
+
+f.Intrinsic.Control.If(v.Screen.F_Report!chkAllCountry.Value.Boolean,=,True)
+	Gui.F_Report.txtFCountry.Enabled(False)
+	Gui.F_Report.txtTCountry.Enabled(False)
+	Gui.F_Report.cmdFCountry.Enabled(False)
+	Gui.F_Report.cmdTCountry.Enabled(False)
+f.Intrinsic.Control.Else
+	Gui.F_Report.txtFCountry.Enabled(True)
+	Gui.F_Report.txtTCountry.Enabled(True)
+	Gui.F_Report.cmdFCountry.Enabled(True)
+	Gui.F_Report.cmdTCountry.Enabled(True)
+f.Intrinsic.Control.EndIf
+
+Gui.F_Report.txtFCountry.Text("")
+Gui.F_Report.txtTCountry.Text("")
+Gui.F_Report.txtFDoctor.Text("")
+Gui.F_Report.txtTDoctor.Text("")
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.chkAllCountry_Click.End
+
+Program.Sub.chkAllDate_Click.Start
+F.Intrinsic.Control.Try
+
+f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,True)
+	Gui.F_Report.dtpFDate.Enabled(False)
+	Gui.F_Report.dtpTDate.Enabled(False)
+f.Intrinsic.Control.Else
+	Gui.F_Report.dtpFDate.Enabled(True)
+	Gui.F_Report.dtpTDate.Enabled(True)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.chkAllDate_Click.End
+
+Program.Sub.cmdFDoctor_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sRet.Declare(String)
+
+f.Intrinsic.Control.If(v.Screen.F_Report!chkAllCountry.Value.Boolean,=,True,"OR",v.Caller.Switches,<>,3)
+	v.Local.sSQL.Set("SELECT FNAME, MNAME, LNAME, CITY1, STATE1 FROM GCG_4779_DOCTOR ORDER BY FNAME ASC, MNAME ASC, LNAME ASC, CITY1 ASC, STATE1 ASC")
+f.Intrinsic.Control.Else
+	f.Intrinsic.String.Build("SELECT FNAME, MNAME, LNAME, CITY1, STATE1 FROM GCG_4779_DOCTOR WHERE COUNTRY1 BETWEEN '{0}' AND '{1}' ORDER BY FNAME ASC, MNAME ASC, LNAME ASC, CITY1 ASC, STATE1 ASC",v.Screen.F_Report!txtFCountry.Text,v.Screen.F_Report!txtTCountry.Text,v.Local.sSQL)
+f.Intrinsic.Control.EndIf
+
+f.Intrinsic.UI.Browser("From Doctor","Con",v.Local.sSQL,"First Name*!*Initial*!*Last Name*!*City*!*State","1000*!*200*!*1000*!*1000*!*200",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+	Gui.F_Report.txtFDoctor.SetMetaData(v.Local.sRet)
+	Gui.F_Report.txtTDoctor.SetMetaData(v.Local.sRet)
+	f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+	v.Local.sRet.RedimPreserve(0,2)
+	f.Intrinsic.String.Join(v.Local.sRet," ",v.Local.sRet)
+	Gui.F_Report.txtFDoctor.Text(v.Local.sRet)
+	Gui.F_Report.txtTDoctor.Text(v.Local.sRet)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdFDoctor_Click.End
+
+Program.Sub.cmdTDoctor_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sRet.Declare(String)
+
+f.Intrinsic.Control.If(v.Screen.F_Report!chkAllCountry.Value.Boolean,=,True,"OR",v.Caller.Switches,<>,3)
+	v.Local.sSQL.Set("SELECT FNAME, MNAME, LNAME, CITY1, STATE1 FROM GCG_4779_DOCTOR ORDER BY FNAME ASC, MNAME ASC, LNAME ASC, CITY1 ASC, STATE1 ASC")
+f.Intrinsic.Control.Else
+	f.Intrinsic.String.Build("SELECT FNAME, MNAME, LNAME, CITY1, STATE1 FROM GCG_4779_DOCTOR WHERE COUNTRY1 BETWEEN '{0}' AND '{1}' ORDER BY FNAME ASC, MNAME ASC, LNAME ASC, CITY1 ASC, STATE1 ASC",v.Screen.F_Report!txtFCountry.Text,v.Screen.F_Report!txtTCountry.Text,v.Local.sSQL)
+f.Intrinsic.Control.EndIf
+
+f.Intrinsic.UI.Browser("From Doctor","Con",v.Local.sSQL,"First Name*!*Initial*!*Last Name*!*City*!*State","1000*!*200*!*1000*!*1000*!*200",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+	Gui.F_Report.txtTDoctor.SetMetaData(v.Local.sRet)
+	f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+	v.Local.sRet.RedimPreserve(0,2)
+	f.Intrinsic.String.Join(v.Local.sRet," ",v.Local.sRet)
+	Gui.F_Report.txtTDoctor.Text(v.Local.sRet)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdTDoctor_Click.End
+
+Program.Sub.chkAllDoctors_Click.Start
+F.Intrinsic.Control.Try
+
+f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDoctors.Value.Boolean,=,True)
+	Gui.F_Report.txtFDoctor.Enabled(False)
+	Gui.F_Report.cmdFDoctor.Enabled(False)
+	Gui.F_Report.txtTDoctor.Enabled(False)
+	Gui.F_Report.cmdTDoctor.Enabled(False)
+f.Intrinsic.Control.Else
+	Gui.F_Report.txtFDoctor.Enabled(True)
+	Gui.F_Report.txtFDoctor.Enabled(True)
+	Gui.F_Report.txtTDoctor.Enabled(True)
+	Gui.F_Report.txtTDoctor.Enabled(True)
+f.Intrinsic.Control.EndIf
+
+Gui.F_Report.txtFDoctor.Text("")
+Gui.F_Report.txtTDoctor.Text("")
+Gui.F_Report.txtFDoctor.ClearMetaData
+Gui.F_Report.txtTDoctor.ClearMetaData
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.chkAllDoctors_Click.End
+
+Program.Sub.cmdCreate_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.iCount.Declare(Long)
+v.Local.sRet.Declare(String)
+v.Local.sDTColumn.Declare(String)
+v.Local.sGColumn.Declare(String)
+v.Local.iRet.Declare(Long)
+v.Local.fRet.Declare(Float)
+
+Gui.F_Report..Visible(False)
+
+f.Intrinsic.Control.SelectCase(v.Caller.Switches)
+'f.Intrinsic.Control.SelectCase(2)
+	'New Patient Report
+	f.Intrinsic.Control.Case(1)
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT LNAME, FNAME, MNAME, GENDER, DATE_BIRTH, PHONE, ADDRESS1L1, ADDRESS1L2, CITY1, STATE1, ZIP_CODE1, COUNTRY1, RTRIM(' ') AS COMMENTS, QNUMBER + ONUMBER + WONUMBER AS USEKEY FROM GCG_4779_PATIENT WHERE CREATE_DATE BETWEEN '{0}' AND '{1}' ORDER BY LNAME, FNAME, MNAME ",v.Screen.F_Report!dtpFDate.Value.PervasiveDate,v.Screen.F_Report!dtpTDate.Value.PervasiveDate,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT LNAME, FNAME, MNAME, GENDER, DATE_BIRTH, PHONE, ADDRESS1L1, ADDRESS1L2, CITY1, STATE1, ZIP_CODE1, COUNTRY1, RTRIM(' ') AS COMMENTS, QNUMBER + ONUMBER + WONUMBER AS USEKEY FROM GCG_4779_PATIENT ORDER BY LNAME, FNAME, MNAME ")
+		f.Intrinsic.Control.EndIf
+		f.Data.DataTable.CreateFromSQL("Report","Con",v.Local.sSQL,True)
+		f.Intrinsic.Control.For(v.Local.iCount,v.DataTable.Report.RowCount--)
+			'Loop through the DT and Get all the comments for the Key
+			f.Intrinsic.String.Build("SELECT CDATE, COMMENTS FROM GCG_4779_COMMENTS WHERE QNUMBER + ONUMBER + WONUMBER = '{0}' ORDER BY CDATE ASC ",v.DataTable.Report(v.Local.iCount).USEKEY!FieldVal,v.Local.sSQL)
+			f.ODBC.Connection!Con.ExecuteAndReturn(v.Local.sSQL,v.Local.sRet)
+			'Replace *!* with space
+			f.Intrinsic.String.Replace(v.Local.sRet,"*!*"," ",v.Local.sRet)
+			f.Intrinsic.String.Replace(v.Local.sRet,"#$#",v.Ambient.NewLine,v.Local.sRet)
+			f.Data.DataTable.SetValue("Report",v.Local.iCount,"COMMENTS",v.Local.sRet)
+			v.Local.sRet.Set("")
+		f.Intrinsic.Control.Next(v.Local.iCount)
+		'Delete the Key column
+		f.Data.DataTable.RemoveColumn("Report","USEKEY")
+		f.Intrinsic.String.Split("LNAME*!*FNAME*!*MNAME*!*GENDER*!*DATE_BIRTH*!*PHONE*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*COMMENTS","*!*",v.Local.sDTColumn)
+		f.Intrinsic.String.Split("Last Name*!*First Name*!*Initial*!*Gender*!*Birth Date*!*Phone*!*Address Line 1*!*Address Line 2*!*City*!*State*!*Zip Code*!*Country*!*Comments","*!*",v.Local.sGColumn)
+		
+	'Sales by Doctor
+	f.Intrinsic.Control.Case(2)
+		'we have FName*!*MName*!*LName*!*City1*!*State1 in the metadata of the text box
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDoctors.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT LNAME, FNAME, IDENT FROM GCG_4779_DOCTOR WHERE FNAME + '*!*' + MNAME + '*!*' + LNAME + '*!*' + CITY1 + '*!*' + STATE1 BETWEEN '{0}' AND '{1}' ",v.Screen.F_Report!txtFDoctor.MetaData0,v.Screen.F_Report!txtTDoctor.MetaData0,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT LNAME, FNAME, IDENT FROM GCG_4779_DOCTOR ")
+		f.Intrinsic.Control.EndIf
+		f.Data.DataTable.CreateFromSQL("Report","Con",v.Local.sSQL,True)
+		f.Data.DataTable.AddColumn("Report","Count","Long")
+		f.Data.DataTable.AddColumn("Report","Sales","Float")
+		'We need to get the ship date within the date range
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT ORDER_NO, 'Y' AS VAL FROM V_ORDER_HIST_HEAD WHERE DATE_SHIPPED BETWEEN '{0}' AND '{1}' ORDER BY ORDER_NO",v.Screen.F_Report!dtpFDate.Value.PervasiveDate,v.Screen.F_Report!dtpTDate.Value.PervasiveDate,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT ORDER_NO, 'Y' AS VAL FROM V_ORDER_HIST_HEAD")
+		f.Intrinsic.Control.EndIf
+		f.Data.Dictionary.CreateFromSQL("Order","Con",v.Local.sSQL)
+		f.Data.Dictionary.SetDefaultReturn("Order","")
+		'We need to get the patient's associated to the orders
+		f.Data.DataTable.CreateFromSQL("Patient","Con","SELECT ONUMBER, DOCTOR, RTRIM(' ') AS FLAG FROM GCG_4779_PATIENT",True)
+		f.Data.DataTable.FillFromDictionary("Patient","Order","ONUMBER","FLAG")
+		f.Data.Dictionary.Close("Order")
+		'We need to geet the Total Sales amount for the Order
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT ORDER_NO, SUM(EXTENSION) AS VAL FROM V_ORDER_HIST_LINE WHERE DATE_SHIPPED BETWEEN '{0}' AND '{1}' AND ORDER_LINE < '8000' GROUP BY ORDER_NO ORDER BY ORDER_NO",v.Screen.F_Report!dtpFDate.Value.PervasiveDate,v.Screen.F_Report!dtpTDate.Value.PervasiveDate,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT ORDER_NO, SUM(EXTENSION) AS VAL FROM V_ORDER_HIST_LINE WHERE ORDER_LINE < '8000' GROUP BY ORDER_NO ")
+		f.Intrinsic.Control.EndIf
+		f.Data.Dictionary.CreateFromSQL("Order","Con",v.Local.sSQL)
+		f.Data.Dictionary.SetDefaultReturn("Order",0)
+		f.Data.DataTable.AddColumn("Patient","Sales","Float")
+		f.Data.DataTable.FillFromDictionary("Patient","Order","ONUMBER","SALES")
+		f.Data.Dictionary.Close("Order")
+		'Loop through the Report table and compute the Sum of the orders for each doctor
+		f.Intrinsic.Control.For(v.Local.iCount,v.DataTable.Report.RowCount--)
+			f.Intrinsic.String.Build("DOCTOR = {0} AND FLAG = 'Y'",v.DataTable.Report(v.Local.iCount).IDENT!FieldValLong,v.Local.sSQL)
+			f.Data.DataTable.Compute("Patient","COUNT(DOCTOR)",v.Local.sSQL,v.Local.iRet)
+			f.Data.DataTable.Compute("Patient","SUM(SALES)",v.Local.sSQL,v.Local.fRet)
+			f.Data.DataTable.SetValue("Report",v.Local.iCount,"Count",v.Local.iRet,"Sales",v.Local.fRet)
+		f.Intrinsic.Control.Next(v.Local.iCount)
+		f.Data.DataTable.Close("Patient")
+		f.Data.DataTable.RemoveColumn("Report","IDENT")
+		f.Intrinsic.String.Split("LNAME*!*FNAME*!*COUNT*!*SALES","*!*",v.Local.sDTColumn)
+		f.Intrinsic.String.Split("Last Name*!*First Name*!*Orders Count*!*Total Sales","*!*",v.Local.sGColumn)
+		
+	'Sales by Country/Doctor
+	f.Intrinsic.Control.Case(3)
+		'we have FName*!*MName*!*LName*!*City1*!*State1 in the metadata of the text box
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDoctors.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT COUNTRY1, LNAME, FNAME, IDENT FROM GCG_4779_DOCTOR WHERE FNAME + '*!*' + MNAME + '*!*' + LNAME + '*!*' + CITY1 + '*!*' + STATE1 BETWEEN '{0}' AND '{1}' ",v.Screen.F_Report!txtFDoctor.MetaData0,v.Screen.F_Report!txtTDoctor.MetaData0,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT COUNTRY1, LNAME, FNAME, IDENT FROM GCG_4779_DOCTOR ")
+		f.Intrinsic.Control.EndIf
+		f.Data.DataTable.CreateFromSQL("Report","Con",v.Local.sSQL,True)
+		f.Data.DataTable.AddColumn("Report","Count","Long")
+		f.Data.DataTable.AddColumn("Report","Sales","Float")
+		'We need to get the ship date within the date range
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT ORDER_NO, 'Y' AS VAL FROM V_ORDER_HIST_HEAD WHERE DATE_SHIPPED BETWEEN '{0}' AND '{1}' ORDER BY ORDER_NO",v.Screen.F_Report!dtpFDate.Value.PervasiveDate,v.Screen.F_Report!dtpTDate.Value.PervasiveDate,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT ORDER_NO, 'Y' AS VAL FROM V_ORDER_HIST_HEAD")
+		f.Intrinsic.Control.EndIf
+		f.Data.Dictionary.CreateFromSQL("Order","Con",v.Local.sSQL)
+		f.Data.Dictionary.SetDefaultReturn("Order","")
+		'We need to get the patient's associated to the orders
+		f.Data.DataTable.CreateFromSQL("Patient","Con","SELECT ONUMBER, DOCTOR, RTRIM(' ') AS FLAG FROM GCG_4779_PATIENT",True)
+		f.Data.DataTable.FillFromDictionary("Patient","Order","ONUMBER","FLAG")
+		f.Data.Dictionary.Close("Order")
+		'We need to geet the Total Sales amount for the Order
+		f.Intrinsic.Control.If(v.Screen.F_Report!chkAllDate.Value.Boolean,=,False)
+			f.Intrinsic.String.Build("SELECT ORDER_NO, SUM(EXTENSION) AS VAL FROM V_ORDER_HIST_LINE WHERE DATE_SHIPPED BETWEEN '{0}' AND '{1}' AND ORDER_LINE < '8000' GROUP BY ORDER_NO ORDER BY ORDER_NO",v.Screen.F_Report!dtpFDate.Value.PervasiveDate,v.Screen.F_Report!dtpTDate.Value.PervasiveDate,v.Local.sSQL)
+		f.Intrinsic.Control.Else
+			v.Local.sSQL.Set("SELECT ORDER_NO, SUM(EXTENSION) AS VAL FROM V_ORDER_HIST_LINE WHERE ORDER_LINE < '8000' GROUP BY ORDER_NO ")
+		f.Intrinsic.Control.EndIf
+		f.Data.Dictionary.CreateFromSQL("Order","Con",v.Local.sSQL)
+		f.Data.Dictionary.SetDefaultReturn("Order",0)
+		f.Data.DataTable.AddColumn("Patient","Sales","Float")
+		f.Data.DataTable.FillFromDictionary("Patient","Order","ONUMBER","SALES")
+		f.Data.Dictionary.Close("Order")
+		'Loop through the Report table and compute the Sum of the orders for each doctor
+		f.Intrinsic.Control.For(v.Local.iCount,v.DataTable.Report.RowCount--)
+			f.Intrinsic.String.Build("DOCTOR = {0} AND FLAG = 'Y'",v.DataTable.Report(v.Local.iCount).IDENT!FieldValLong,v.Local.sSQL)
+			f.Data.DataTable.Compute("Patient","COUNT(DOCTOR)",v.Local.sSQL,v.Local.iRet)
+			f.Data.DataTable.Compute("Patient","SUM(SALES)",v.Local.sSQL,v.Local.fRet)
+			f.Data.DataTable.SetValue("Report",v.Local.iCount,"Count",v.Local.iRet,"Sales",v.Local.fRet)
+		f.Intrinsic.Control.Next(v.Local.iCount)
+		f.Data.DataTable.Close("Patient")
+		f.Data.DataTable.RemoveColumn("Report","IDENT")
+		f.Intrinsic.String.Split("COUNTRY1*!*LNAME*!*FNAME*!*COUNT*!*SALES","*!*",v.Local.sDTColumn)
+		f.Intrinsic.String.Split("Country*!*Last Name*!*First Name*!*Orders Count*!*Total Sales","*!*",v.Local.sGColumn)
+		
+f.Intrinsic.Control.EndSelect
+
+'Create the View
+f.Data.DataView.Create("Report","ReportView",22)
+'Create Grid
+Gui.F_Grid.GsGcGrid.AddGridviewFromDataview("GridReport","Report","ReportView")
+'Loop through the columns to set the Captions
+f.Intrinsic.Control.For(v.Local.iCount,v.Local.sDTColumn.UBound)
+	Gui.F_Grid.GsGcGrid.SetColumnProperty("GridReport",v.Local.sDTColumn(v.Local.iCount),"Caption",v.Local.sGColumn(v.Local.iCount))
+f.Intrinsic.Control.Next(v.Local.iCount)
+Gui.F_Grid.GsGcGrid.SetGridviewProperty("GridReport","OptionsViewRowAutoHeight",True)
+
+f.Intrinsic.Control.If(v.Caller.Switches,=,1)
+	Gui.F_Grid.GsGcGrid.SetColumnProperty("GridReport","COMMENTS","CellWordWrap","Wrap")
+	Gui.F_Grid.GsGcGrid.SetColumnProperty("GridReport","DATE_BIRTH","DisplayCustomDateTime","d")
+f.Intrinsic.Control.EndIf
+
+Gui.F_Grid.GsGcGrid.MainView("GridReport")
+
+Gui.F_Grid..Show
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdCreate_Click.End
+
+Program.Sub.cmdExport_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+v.Local.iHandle.Declare(Long)
+
+f.Intrinsic.UI.ShowSaveFileDialog("","Excel|*.xlsx",v.Local.sRet)
+Gui.F_Grid.GsGcGrid.Export(v.Local.sRet,"xlsx")
+
+'Open the Excel on the screen.
+F.Intrinsic.Task.ShellExec(v.Local.iHandle,"OPEN",v.Local.sRet,"","",1)
+
+f.Intrinsic.Control.CallSub(Unload)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdExport_Click.End
