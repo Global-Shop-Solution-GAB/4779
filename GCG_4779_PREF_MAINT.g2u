@@ -1,0 +1,102 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Pref..Create
+Gui.F_Pref..Caption("Doctor Prefernce")
+Gui.F_Pref..Size(4440,6945)
+Gui.F_Pref..MinX(0)
+Gui.F_Pref..MinY(0)
+Gui.F_Pref..Position(0,0)
+Gui.F_Pref..BackColor(-2147483633)
+Gui.F_Pref..MousePointer(0)
+Gui.F_Pref..Event(UnLoad,F_Pref_UnLoad)
+Gui.F_Pref..ContextMenuCreate("ctxPref")
+Gui.F_Pref..ContextMenuAddItem("ctxPref","ADD",0,"Add Row")
+Gui.F_Pref..ContextMenuAddItem("ctxPref","REMOVE",0,"Remove Row")
+Gui.F_Pref..ContextMenuSetItemEventHandler("ctxPref","ADD",MenuClick)
+Gui.F_Pref..ContextMenuSetItemEventHandler("ctxPref","REMOVE",MenuClick)
+Gui.F_Pref.GsGcPref.Create(GsGridControl)
+Gui.F_Pref.GsGcPref.Size(4380,6135)
+Gui.F_Pref.GsGcPref.Position(0,0)
+Gui.F_Pref.GsGcPref.ContextMenuAttach("ctxPref")
+Gui.F_Pref.GsGcPref.Anchor(15)
+Gui.F_Pref.cmdSave.Create(Button)
+Gui.F_Pref.cmdSave.Size(855,375)
+Gui.F_Pref.cmdSave.Position(75,6255)
+Gui.F_Pref.cmdSave.Caption("Save")
+Gui.F_Pref.cmdSave.Event(Click,cmdSave_Click)
+Gui.F_Pref.cmdSave.Anchor(6)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+
+f.ODBC.Connection!Con.OpenConnection(v.Ambient.PDSN,v.Ambient.PUser,v.Ambient.PPass)
+
+f.Data.DataTable.CreateFromSQL("Pref","Con","SELECT PREF AS Preference FROM GCG_4779_PREF_MAINT ORDER BY PREF ASC",True)
+f.Data.DataView.Create("Pref","PrefView",22)
+Gui.F_Pref.GsGcPref.AddGridviewFromDataview("GridPref","Pref","PrefView")
+Gui.F_Pref.GsGcPref.SetColumnProperty("GridPref","Preference","ReadOnly",False)
+Gui.F_Pref.GsGcPref.SetColumnProperty("GridPref","Preference","AllowEdit",True)
+Gui.F_Pref.GsGcPref.MainView("GridPref")
+
+Gui.F_Pref..Show
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.TryCatch.Start
+v.Local.sError.Declare(String)
+Function.Intrinsic.String.Concat("Project: GCG_4779_PREF_MAINT.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",v.Args.Sub,V.Ambient.NewLine,"Error Occurred ",V.Args.Error," with description ",v.Args.Desc,V.Local.sError)
+F.Intrinsic.UI.Msgbox(V.Local.sError)
+f.Intrinsic.Control.CallSub(F_Pref_UnLoad)
+Program.Sub.TryCatch.End
+
+Program.Sub.F_Pref_UnLoad.Start
+f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.End
+Program.Sub.F_Pref_UnLoad.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.Try
+
+Gui.F_Pref..Visible(False)
+
+f.Data.DataTable.SaveToDB("Pref","Con","GCG_4779_PREF_MAINT","PREFERENCE",7,"PREFERENCE@!@PREF")
+
+f.Intrinsic.Control.CallSub(F_Pref_Unload)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.MenuClick.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+v.Local.iCount.Declare(Long)
+
+f.Intrinsic.Control.If(v.Args.ItemName,=,"ADD")
+	f.Data.DataTable.AddRow("Pref","Preference","")
+	Gui.F_Pref.GsGcPref.GetRowCount("GridPref",v.Local.iCount)
+	f.Intrinsic.Math.Sub(v.Local.iCount,1,v.Local.iCount)
+	Gui.F_Pref.GsGcPref.FocusCell("GridPref",v.Local.iCount,0)
+f.Intrinsic.Control.Else
+	Gui.F_Pref.GsGcPref.GetSelectedRows("GridPref",v.Local.sRet)
+	f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+		f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+		f.Intrinsic.String.SortDesc(v.Local.sRet,v.Local.sRet)
+		f.Intrinsic.Control.For(v.Local.iCount,v.Local.sRet.UBound)
+			f.Data.DataTable.DeleteRow("Pref",v.DataView.Pref!PrefView(v.Local.sRet(v.Local.iCount)).DataTableIndex)
+		f.Intrinsic.Control.Next(v.Local.iCount)
+	f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClick.End
