@@ -1,0 +1,243 @@
+Program.Sub.ScreenSU.Start
+Gui.FormRevType..Create
+Gui.FormRevType..Caption("Revision Type Maintenance")
+Gui.FormRevType..Size(6465,8640)
+Gui.FormRevType..MinX(0)
+Gui.FormRevType..MinY(0)
+Gui.FormRevType..Position(0,0)
+Gui.FormRevType..BackColor(-2147483633)
+Gui.FormRevType..MousePointer(0)
+Gui.FormRevType..Event(UnLoad,FormRevType_UnLoad)
+Gui.FormRevType.lblRev.Create(Label,"Revision Type",True,1935,255,0,150,270,True,0,"Arial",8,-2147483633,0)
+Gui.FormRevType.txtRev.Create(TextBox,"",True,5070,300,0,150,525,True,0,"Arial",8,-2147483643,1)
+Gui.FormRevType.txtRev.MaxLength(50)
+Gui.FormRevType.txtRev.Event(GotFocus,txtRev_GotFocus)
+Gui.FormRevType.cmdAdd.Create(Button)
+Gui.FormRevType.cmdAdd.Size(855,375)
+Gui.FormRevType.cmdAdd.Position(5385,480)
+Gui.FormRevType.cmdAdd.Caption("Add")
+Gui.FormRevType.cmdAdd.Event(Click,cmdAdd_Click)
+Gui.FormRevType.GsGridRev.Create(GsGridControl)
+Gui.FormRevType.GsGridRev.Size(6075,6570)
+Gui.FormRevType.GsGridRev.Position(165,990)
+Gui.FormRevType.GsGridRev.Event(RowCellClick,GsGridRev_RowCellClick)
+Gui.FormRevType.cmdSave.Create(Button)
+Gui.FormRevType.cmdSave.Size(855,375)
+Gui.FormRevType.cmdSave.Position(165,7680)
+Gui.FormRevType.cmdSave.Caption("Save")
+Gui.FormRevType.cmdSave.Event(Click,cmdSave_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.CallSub(Get_Data)
+F.Intrinsic.Control.CallSub(Set_Properties)
+
+Gui.FormRevType..Show
+
+Gui.FormRevType..AlwaysOnTop(True)
+Gui.FormRevType..AlwaysOnTop(False)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.GsGridRev_RowCellClick.Start
+F.Intrinsic.Control.SetErrorHandler("GsGridRev_RowCellClick_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.If(V.Args.Column.UCase,=,"DELETE_ROW")
+	F.Data.DataTable.DeleteRow("Rev",V.Args.RowIndex)
+	F.Data.DataTable.AcceptChanges("Rev")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("GsGridRev_RowCellClick_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.GsGridRev_RowCellClick.End
+
+Program.Sub.FormRevType_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("FormRevType_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("FormRevType_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+Program.Sub.FormRevType_UnLoad.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdSave_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+Gui.FormRevType.GsGridRev.SuspendLayout
+
+F.ODBC.Connection!Con.Execute("Delete From GCG_4779_Rev_Type")
+
+F.Data.DataTable.SaveToDB("Rev","con","GCG_4779_Rev_Type","Rec_No",256,"Rec_No@!@Rec_No*!*Revision_Type@!@Revision_Type")
+
+F.Data.DataTable.CreateFromSQL("RevTemp","con","Select Rec_No, Revision_Type From GCG_4779_Rev_Type Order by Rec_No",True)
+
+F.Data.DataTable.DeleteRow("Rev")
+F.Data.DataTable.AcceptChanges("Rev")
+
+F.Data.DataTable.Merge("RevTemp","Rev",False,2)
+
+F.Data.DataTable.Close("RevTemp")
+
+Gui.FormRevType.GsGridRev.ResumeLayout
+
+F.Intrinsic.UI.Msgbox("Revision Types Saved...........")
+
+F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdSave_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.txtRev_GotFocus.Start
+F.Intrinsic.Control.SetErrorHandler("txtRev_GotFocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+Gui.FormRevType.txtRev.SelectAll
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("txtRev_GotFocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.txtRev_GotFocus.End
+
+Program.Sub.Get_Data.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Data_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sSql.Declare(String,"")
+
+F.ODBC.Connection!con.OpenCompanyConnection
+
+F.Data.DataTable.CreateFromSQL("Rev","con","Select Rec_No, Revision_Type From GCG_4779_Rev_Type Order by Rec_No",True)
+
+F.Data.DataTable.AddColumn("Rev","Delete_Row",String)
+
+F.ODBC.Connection!con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Data_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Get_Data.End
+
+Program.Sub.Set_Properties.Start
+F.Intrinsic.Control.SetErrorHandler("Set_Properties_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+Gui.FormRevType.GsGridRev.AddGridviewFromDatatable("GRev","Rev")
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","Visible",False)
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","AllowEdit",False)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Revision_Type","AllowEdit",True)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Delete_Row","AllowEdit",False)
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","ReadOnly",True)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Revision_Type","ReadOnly",False)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Delete_Row","ReadOnly",True)
+
+Gui.FormRevType.GsGridRev.ColumnEdit("GRev","Delete_Row","EditorButton","Delete")
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Revision_Type","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Delete_Row","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Revision_Type","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Delete_Row","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Rec_No","Caption","Record No")
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Revision_Type","Caption","Revision Type")
+Gui.FormRevType.GsGridRev.SetColumnProperty("GRev","Delete_Row","Caption"," ")
+
+Gui.FormRevType.GsGridRev.MainView("GRev")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Set_Properties_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Set_Properties.End
+
+Program.Sub.cmdAdd_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdAdd_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sType.Declare(String,"")
+
+V.Local.sType.Set(V.Screen.FormRevType!txtRev.Text)
+
+F.Intrinsic.Control.If(V.Local.sType.Trim,<>,"")
+	F.Data.DataTable.AddRow("Rev","Rec_No",0,"Revision_Type",v.Local.sType.Trim)
+	Gui.FormRevType.txtRev.Text("")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdAdd_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Rev_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormRevType_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdAdd_Click.End
