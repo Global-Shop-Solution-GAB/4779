@@ -1,0 +1,817 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Information..Create
+Gui.F_Information..Caption("Patient Information")
+Gui.F_Information..Size(10545,8940)
+Gui.F_Information..MinX(0)
+Gui.F_Information..MinY(0)
+Gui.F_Information..Position(0,0)
+Gui.F_Information..BackColor(-2147483633)
+Gui.F_Information..MousePointer(0)
+Gui.F_Information..Event(UnLoad,F_Information_UnLoad)
+Gui.F_Information..ContextMenuCreate("ctxComments")
+Gui.F_Information..ContextMenuAddItem("ctxComments","ADD",0,"Add Row")
+Gui.F_Information..ContextMenuAddItem("ctxComments","DELETE",0,"Delete Row")
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxComments","ADD",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxComments","DELETE",MenuClick)
+Gui.F_Information.lbl100.Create(Label,"First Name",True,1200,255,0,105,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPFName.Create(TextBox,"",True,3435,300,0,105,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPFName.MaxLength(30)
+Gui.F_Information.txtPFName.TabStop(True)
+Gui.F_Information.txtPFName.TabIndex(1)
+Gui.F_Information.lbl200.Create(Label,"MI",True,390,255,0,3690,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPMName.Create(TextBox,"",True,495,300,0,3690,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPMName.MaxLength(1)
+Gui.F_Information.txtPMName.TabStop(True)
+Gui.F_Information.txtPMName.TabIndex(2)
+Gui.F_Information.lbl300.Create(Label,"Last Name",True,1005,255,0,4350,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPLName.Create(TextBox,"",True,3435,300,0,4350,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPLName.MaxLength(30)
+Gui.F_Information.txtPLName.TabStop(True)
+Gui.F_Information.txtPLName.TabIndex(3)
+Gui.F_Information.lbl400.Create(Label,"Address",True,870,255,0,105,1530,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPAddress1L1.Create(TextBox,"",True,4920,300,0,105,1740,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPAddress1L1.MaxLength(30)
+Gui.F_Information.txtPAddress1L1.TabStop(True)
+Gui.F_Information.txtPAddress1L1.TabIndex(8)
+Gui.F_Information.lbl500.Create(Label,"Address Line 2",True,1380,255,0,105,2130,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPAddress1L2.Create(TextBox,"",True,4965,300,0,105,2340,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPAddress1L2.MaxLength(30)
+Gui.F_Information.txtPAddress1L2.TabStop(True)
+Gui.F_Information.txtPAddress1L2.TabIndex(9)
+Gui.F_Information.lbl600.Create(Label,"City",True,630,255,0,105,2730,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPCity1.Create(TextBox,"",True,1215,300,0,105,2940,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPCity1.MaxLength(30)
+Gui.F_Information.txtPCity1.TabStop(True)
+Gui.F_Information.txtPCity1.TabIndex(10)
+Gui.F_Information.lbl700.Create(Label,"State",True,810,255,0,1680,2730,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPState1.Create(TextBox,"",True,1215,300,0,1650,2940,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPState1.MaxLength(2)
+Gui.F_Information.txtPState1.Mask(">")
+Gui.F_Information.txtPState1.TabStop(True)
+Gui.F_Information.txtPState1.TabIndex(11)
+Gui.F_Information.lbl800.Create(Label,"Zip Code",True,930,255,0,3105,2730,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPZip1.Create(TextBox,"",True,1215,300,0,3075,2940,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPZip1.MaxLength(9)
+Gui.F_Information.txtPZip1.TabStop(True)
+Gui.F_Information.txtPZip1.TabIndex(12)
+Gui.F_Information.lbl900.Create(Label,"Country",True,840,255,0,105,3330,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPCountry1.Create(TextBox,"",True,1215,300,0,105,3540,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPCountry1.MaxLength(30)
+Gui.F_Information.txtPCountry1.TabStop(True)
+Gui.F_Information.txtPCountry1.TabIndex(13)
+Gui.F_Information.lbl1000.Create(Label,"Main Phone #",True,1260,255,0,7995,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPMPhone.Create(TextBox,"",True,2355,300,0,7995,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPMPhone.MaxLength(30)
+Gui.F_Information.txtPMPhone.TabStop(True)
+Gui.F_Information.txtPMPhone.TabIndex(4)
+Gui.F_Information.GsGcPComments.Create(GsGridControl)
+Gui.F_Information.GsGcPComments.Size(10245,3330)
+Gui.F_Information.GsGcPComments.Position(105,4725)
+Gui.F_Information.GsGcPComments.ContextmenuAttach("ctxComments")
+Gui.F_Information.GsGcPComments.Anchor(15)
+Gui.F_Information.GsGcPComments.TabStop(True)
+Gui.F_Information.GsGcPComments.TabIndex(14)
+Gui.F_Information.lbl1900.Create(Label,"Comments",True,1935,255,0,105,4500,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.lbl20.Create(Label,"Gender",True,900,255,0,105,690,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.ddlPGender.Create(DropDownList)
+Gui.F_Information.ddlPGender.Size(1095,330)
+Gui.F_Information.ddlPGender.Position(105,900)
+Gui.F_Information.ddlPGender.TabStop(True)
+Gui.F_Information.ddlPGender.TabIndex(5)
+Gui.F_Information.lbl21.Create(Label,"Date of Birth",True,1290,255,0,1425,690,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.dtpPDOB.Create(DatePicker)
+Gui.F_Information.dtpPDOB.Size(1935,285)
+Gui.F_Information.dtpPDOB.Position(1425,900)
+Gui.F_Information.dtpPDOB.TabStop(True)
+Gui.F_Information.dtpPDOB.TabIndex(6)
+Gui.F_Information.cmdSave.Create(Button)
+Gui.F_Information.cmdSave.Size(855,375)
+Gui.F_Information.cmdSave.Position(105,8160)
+Gui.F_Information.cmdSave.Anchor(6)
+Gui.F_Information.cmdSave.Caption("Save")
+Gui.F_Information.cmdSave.Event(Click,cmdSave_Click)
+Gui.F_Information.cmdSave.TabStop(True)
+Gui.F_Information.cmdSave.TabIndex(15)
+Gui.F_Information.ddlDoctors.Create(DropDownList)
+Gui.F_Information.ddlDoctors.Size(2805,330)
+Gui.F_Information.ddlDoctors.Position(3885,900)
+Gui.F_Information.ddlDoctors.TabStop(True)
+Gui.F_Information.ddlDoctors.TabIndex(7)
+Gui.F_Information.lbl1.Create(Label,"Doctor",True,1935,255,0,3885,690,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.chkStaged.Create(CheckBox)
+Gui.F_Information.chkStaged.Size(1440,360)
+Gui.F_Information.chkStaged.Position(5250,1305)
+Gui.F_Information.chkStaged.Caption("Staged")
+Gui.F_Information.chkRev.Create(CheckBox)
+Gui.F_Information.chkRev.Size(1425,360)
+Gui.F_Information.chkRev.Position(5250,1695)
+Gui.F_Information.chkRev.Caption("Revision")
+Gui.F_Information.lbldateStaged.Create(Label,"Date Staged",True,1005,255,0,6795,1110,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.dtpStaged.Create(DatePicker)
+Gui.F_Information.dtpStaged.Size(1935,285)
+Gui.F_Information.dtpStaged.Position(6795,1320)
+Gui.F_Information.lblPrevCases.Create(Label,"Previous Cases",True,1935,255,0,6795,1680,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtPrevCases.Create(TextBox,"",True,3555,300,0,6795,1890,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtPrevCases.MaxLength(70)
+Gui.F_Information.lblRevType.Create(Label,"Revision Type",True,1440,255,0,5250,2130,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.ddlRevType.Create(DropDownList)
+Gui.F_Information.ddlRevType.Size(3735,330)
+Gui.F_Information.ddlRevType.Position(5250,2340)
+Gui.F_Information.lblICD.Create(Label,"ICD Code",True,1935,255,0,4410,2730,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.ddlICD.Create(DropDownList)
+Gui.F_Information.ddlICD.Size(3735,330)
+Gui.F_Information.ddlICD.Position(4410,2940)
+Gui.F_Information.lblMRN.Create(Label,"MRN #",True,1935,255,0,1680,3330,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtMRN.Create(TextBox,"",True,2640,300,0,1650,3540,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtMRN.MaxLength(20)
+Gui.F_Information.lblPlanServ.Create(Label,"Planning Service",True,1935,255,0,4410,3330,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.ddlPlanServ.Create(DropDownList)
+Gui.F_Information.ddlPlanServ.Size(3735,330)
+Gui.F_Information.ddlPlanServ.Position(4410,3540)
+Gui.F_Information.lblEmail.Create(Label,"Email Address",True,1935,255,0,105,3930,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtEmail.Create(TextBox,"",True,8040,300,0,105,4140,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtEmail.MaxLength(100)
+Gui.F_CRM..Create
+Gui.F_CRM..Caption("Order List")
+Gui.F_CRM..Size(8115,8685)
+Gui.F_CRM..MinX(0)
+Gui.F_CRM..MinY(0)
+Gui.F_CRM..Position(0,0)
+Gui.F_CRM..BackColor(-2147483633)
+Gui.F_CRM..MousePointer(0)
+Gui.F_CRM..Event(UnLoad,F_CRM_UnLoad)
+Gui.F_CRM.GsGcList.Create(GsGridControl)
+Gui.F_CRM.GsGcList.Size(7980,7815)
+Gui.F_CRM.GsGcList.Position(0,0)
+Gui.F_CRM.GsGcList.Anchor(15)
+Gui.F_CRM.GsGcList.Event(RowCellClick,GsGcList_RowCellClick)
+Gui.F_CRM.cmdSelect.Create(Button)
+Gui.F_CRM.cmdSelect.Size(855,375)
+Gui.F_CRM.cmdSelect.Position(105,7935)
+Gui.F_CRM.cmdSelect.Caption("Select")
+Gui.F_CRM.cmdSelect.Event(Click,cmdSelect_Click)
+Gui.F_CRM.cmdSelect.Anchor(6)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+v.Global.sONumber.Declare(String)
+v.Global.sQNumber.Declare(String)
+v.Global.sWONumber.Declare(String)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sSwitch.Declare(String)
+
+Gui.F_Information.tab1.SetTab(0)
+
+f.ODBC.Connection!Con.OpenConnection(v.Ambient.PDSN,v.Ambient.PUser,v.Ambient.PPass)
+
+'Set information
+f.Intrinsic.Control.SelectCase(v.Caller.Hook)
+	'Order Entry Populate Hook
+	f.Intrinsic.Control.Case(11560)
+		v.Passed.000201.Set("Patient Info")
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Order Entry Change Hook
+	f.Intrinsic.Control.Case(11565)
+		v.Global.sONumber.Set(v.Passed.000003.Format0000000)
+		f.Intrinsic.String.Build("SELECT QNUMBER, WONUMBER FROM GCG_4779_PATIENT WHERE ONUMBER = '{0}' ",v.Global.sONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,True)
+			f.Intrinsic.Control.CallSub(Relations,"Type","O","Update","Y")
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close	
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Order Entry Script 1 Hook
+	f.Intrinsic.Control.Case(11910)
+		f.Intrinsic.Control.If(v.Passed.000003,=,"")
+			f.Intrinsic.Control.End
+		f.Intrinsic.Control.EndIf
+		v.Global.sONumber.Set(v.Passed.000003.Format0000000)
+		f.Intrinsic.String.Build("SELECT QNUMBER, WONUMBER FROM GCG_4779_PATIENT WHERE ONUMBER = '{0}' ",v.Global.sONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			v.Global.sQNumber.Set(v.ODBC.Con!rst.FieldVal!QNUMBER)
+			v.Global.sWONumber.Set(v.ODBC.Con!rst.FieldVal!WONUMBER)
+		f.Intrinsic.Control.Else
+			'New so get the relationships added
+			f.Intrinsic.Control.CallSub(Relations,"Type","O","Update","N")
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		v.Local.sSwitch.Set(v.Caller.Switches)
+	'Order Line WO Generate Button
+	f.Intrinsic.Control.Case(12340)
+		v.Passed.GLOBAL.Set(v.Passed.000060.Format0000000)
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Job Header Populate Hook
+	f.Intrinsic.Control.Case(16630)
+		v.Passed.000091.Set("Patient Info")
+		'Preferences
+		v.Passed.GAB-LBL-1.Set("Preferences (Not Editable)")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PT",425)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PT",445)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PH",35)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PW",250)
+		f.Intrinsic.UI.ChangeCallerProperty(v.Passed.GAB-MEMO-1,"LOCK",0)
+		'Patient initials
+		v.Passed.GAB-LBL-2.Set("Initials")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PL",225)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PT",0)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PW",30)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PL",225)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PT",16)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PW",25)
+		'Dr name
+		v.Passed.GAB-LBL-3.Set("Doctor Name")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-3","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-3","PT",0)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PT",16)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PW",250)
+		'Get Order Number from Global
+		f.Intrinsic.Control.If(v.Caller.Switches.LTrim,=,"S")
+			f.Intrinsic.String.Build("SELECT B.PREF, LEFT(A.FNAME,1) + LEFT(A.LNAME,1) AS INIT, B.FNAME + ' ' + B.MNAME + ' ' + B.LNAME AS NAME FROM GCG_4779_PATIENT AS A LEFT JOIN GCG_4779_DOCTOR AS B ON A.DOCTOR = B.IDENT WHERE A.ONUMBER = '{0}' ",v.Passed.GLOBAL,v.Local.sSQL)
+			f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+			f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+				V.Passed.GAB-MEMO-1.Set(v.ODBC.Con!rst.FieldVal!PREF)
+				v.Passed.GAB-TEXT-1.Set(v.ODBC.Con!rst.FieldVal!INIT)
+				V.Passed.GAB-TEXT-2.Set(v.ODBC.Con!rst.FieldVal!NAME)
+			f.Intrinsic.Control.EndIf
+			f.ODBC.Con!rst.Close
+		f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Job Change Hook
+	f.Intrinsic.Control.Case(16660)
+		f.Intrinsic.String.Build("{0}-{1}",v.Passed.000003,v.Passed.000004,v.Global.sWONumber)
+		f.Intrinsic.String.Build("SELECT QNUMBER, WONUMBER FROM GCG_4779_PATIENT WHERE WONUMBER = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,True)
+			f.Intrinsic.Control.CallSub(Relations,"Type","W","Update","Y")
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		f.Intrinsic.String.Build("SELECT B.PREF, LEFT(A.FNAME,1) + LEFT(A.LNAME,1) AS INIT, B.FNAME + ' ' + B.MNAME + ' ' + B.LNAME AS NAME FROM GCG_4779_PATIENT AS A LEFT JOIN GCG_4779_DOCTOR AS B ON A.DOCTOR = B.IDENT WHERE A.WONUMBER = '{0}-{1}' ",v.Passed.000003,v.Passed.000004,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			V.Passed.GAB-MEMO-1.Set(v.ODBC.Con!rst.FieldVal!PREF)
+			v.Passed.GAB-TEXT-1.Set(v.ODBC.Con!rst.FieldVal!INIT)
+			V.Passed.GAB-TEXT-2.Set(v.ODBC.Con!rst.FieldVal!NAME)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Job Header Script 1 Hook
+	f.Intrinsic.Control.Case(16670)
+		f.Intrinsic.Control.If(v.Passed.000003,=,"")
+			f.Intrinsic.Control.End
+		f.Intrinsic.Control.EndIf
+		f.Intrinsic.String.Build("{0}-{1}",v.Passed.000003,v.Passed.000004,v.Global.sWONumber)
+		f.Intrinsic.String.Build("SELECT QNUMBER, ONUMBER FROM GCG_4779_PATIENT WHERE WONUMBER = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			v.Global.sQNumber.Set(v.ODBC.Con!rst.FieldVal!QNUMBER)
+			v.Global.sONumber.Set(v.ODBC.Con!rst.FieldVal!ONUMBER)
+		f.Intrinsic.Control.Else
+			'New so get the relationships added
+			f.Intrinsic.Control.If(v.Caller.Switches.LTrim,<>,"S")
+				f.Intrinsic.Control.CallSub(Relations,"Type","W","Update","Y")
+			f.Intrinsic.Control.Else
+				v.Global.sONumber.Set(v.Passed.GLOBAL)
+				f.Intrinsic.Control.CallSub(Relations,"Type","O","Update","Y")
+			f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		v.Local.sSwitch.Set(v.Caller.Switches)
+	'Job Header View Populate
+	f.Intrinsic.Control.Case(13580)
+		v.Passed.000057.Set("Patient Info")
+		'Preferences
+		v.Passed.GAB-LBL-1.Set("Preferences (Not Editable)")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PL",530)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-1","PT",0)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PL",530)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PT",18)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PH",35)
+		f.Intrinsic.Variable.SetProperty("GAB-MEMO-1","PW",250)
+		f.Intrinsic.UI.ChangeCallerProperty(v.Passed.GAB-MEMO-1,"LOCK",0)
+		'Patient initials
+		v.Passed.GAB-LBL-2.Set("Initials")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PL",200)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PT",0)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-2","PW",30)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PL",200)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PT",20)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-1","PW",25)
+		'Dr name
+		v.Passed.GAB-LBL-3.Set("Doctor Name")
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-3","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-LBL-3","PT",0)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PL",300)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PT",20)
+		f.Intrinsic.Variable.SetProperty("GAB-TEXT-2","PW",150)
+		
+		f.Intrinsic.String.RPad(v.Passed.000001," ",10,v.Global.sWONumber)
+		f.Intrinsic.String.Build("{0}-{1}",v.Global.sWONumber.Left6,v.Global.sWONumber.Right3,v.Global.sWONumber)
+		f.Intrinsic.String.Build("SELECT B.PREF, LEFT(A.FNAME,1) + LEFT(A.LNAME,1) AS INIT, B.FNAME + ' ' + B.MNAME + ' ' + B.LNAME AS NAME FROM GCG_4779_PATIENT AS A LEFT JOIN GCG_4779_DOCTOR AS B ON A.DOCTOR = B.IDENT WHERE A.WONUMBER = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			V.Passed.GAB-MEMO-1.Set(v.ODBC.Con!rst.FieldVal!PREF)
+			v.Passed.GAB-TEXT-1.Set(v.ODBC.Con!rst.FieldVal!INIT)
+			V.Passed.GAB-TEXT-2.Set(v.ODBC.Con!rst.FieldVal!NAME)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Job Header View Sctipt 1
+	f.Intrinsic.Control.Case(13620)
+		f.Intrinsic.Control.If(v.Passed.000001,=,"")
+			f.Intrinsic.Control.End
+		f.Intrinsic.Control.EndIf
+		f.Intrinsic.String.RPad(v.Passed.000001," ",10,v.Global.sWONumber)
+		f.Intrinsic.String.Build("{0}-{1}",v.Global.sWONumber.Left6,v.Global.sWONumber.Right3,v.Global.sWONumber)
+		f.Intrinsic.String.Build("SELECT QNUMBER, ONUMBER FROM GCG_4779_PATIENT WHERE WONUMBER = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			v.Global.sQNumber.Set(v.ODBC.Con!rst.FieldVal!QNUMBER)
+			v.Global.sONumber.Set(v.ODBC.Con!rst.FieldVal!ONUMBER)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		v.Local.sSwitch.Set("V")
+	'Quote Header Populate Hook
+	f.Intrinsic.Control.Case(10710)
+		v.Passed.000201.Set("Patient Info")
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'Quote Script 1 Hook
+	f.Intrinsic.Control.Case(10960)
+		f.Intrinsic.Control.If(v.Passed.000003,=,"")
+			f.Intrinsic.Control.End
+		f.Intrinsic.Control.EndIf
+		v.Global.sQNumber.Set(v.Passed.000003.Format0000000)
+		f.Intrinsic.String.Build("SELECT ONUMBER, WONUMBER FROM GCG_4779_PATIENT WHERE QNUMBER = '{0}' ",v.Global.sQNumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordsetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			v.Global.sONumber.Set(v.ODBC.Con!rst.FieldVal!ONUMBER)
+			v.Global.sWONumber.Set(v.ODBC.Con!rst.FieldVal!WONUMBER)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+		v.Local.sSwitch.Set(v.Caller.Switches)
+	'OLD
+	'CRM Populate Hook
+	f.Intrinsic.Control.Case(42900)
+		v.Passed.CRM-cmdGAB-0.Set("Patient Info")
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'OLD
+	'CRM Script 1 Hook
+	f.Intrinsic.Control.Case(42918)
+		v.Local.sSwitch.Set("V")
+		f.Intrinsic.Control.CallSub(LoadList,"Customer",v.Passed.DATA-CRM-CompID)
+		Gui.F_CRM..Visible(True)
+		Gui.F_CRM..WaitForDismiss
+	'CRM Populate Hook
+	f.Intrinsic.Control.Case(51000)
+		v.Passed.CRM-TSB_GAB-5.Set("Patient Info")
+		f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+	'CRM Script 10 Hook
+	f.Intrinsic.Control.Case(51090)
+		v.Local.sSwitch.Set("V")
+		F.Intrinsic.Control.If(V.Passed.CRM-cboCompType.UCase,=,"CUSTOMER","AND",V.Passed.CRM-txtCompNo.Trim,<>,"")
+			f.Intrinsic.Control.CallSub(LoadList,"Customer",V.Passed.CRM-txtCompNo.Trim)
+			Gui.F_CRM..Visible(True)
+			Gui.F_CRM..WaitForDismiss
+		F.Intrinsic.Control.Else
+			F.Intrinsic.UI.Msgbox("Select Customer To Launch Patient Screen...........","Attention")
+			f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+		F.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.CaseElse
+		f.Intrinsic.Control.End
+f.Intrinsic.Control.EndSelect
+
+'Populate the Screen
+f.Intrinsic.Control.CallSub(Populate)
+'Populate Grids
+f.Intrinsic.Control.CallSub(CreateDatatables)
+
+'See if we are in View
+f.Intrinsic.Control.If(v.Local.sSwitch,=,"V")
+	f.Intrinsic.Control.CallSub(ViewMode)
+f.Intrinsic.Control.EndIf
+
+Gui.F_Information..Show
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.F_Information_UnLoad.Start
+f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.End
+Program.Sub.F_Information_UnLoad.End
+
+Program.Sub.TryCatch.Start
+v.Local.sError.Declare(String)
+Function.Intrinsic.String.Concat("Project: GCG_4779_Patient_Info.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",v.Args.Sub,V.Ambient.NewLine,"Error Occurred ",V.Args.Error," with description ",v.Args.Desc,V.Local.sError)
+F.Intrinsic.UI.Msgbox(V.Local.sError)
+f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+Program.Sub.TryCatch.End
+
+Program.Sub.CreateDatatables.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+
+f.Intrinsic.Control.If(v.DataTable.PComments.Exists,=,True)
+	f.Data.DataTable.Close("PComments")
+f.Intrinsic.Control.EndIf
+f.Intrinsic.String.Build("SELECT CDATE AS Date, COMMENTS AS Comments, ONUMBER, QNUMBER, WONUMBER FROM GCG_4779_COMMENTS WHERE ISNULL(QNUMBER,'') = '{0}' AND ISNULL(ONUMBER,'') = '{1}' AND ISNULL(WONUMBER,'') = '{2}' ORDER BY CDATE ASC",v.Global.sQNumber,v.Global.sONumber,v.Global.sWONumber,v.Local.sSQL)
+f.Data.DataTable.CreateFromSQL("PComments","Con",v.Local.sSQL,True)
+f.Data.DataView.Create("PComments","PCommentsView",22)
+Gui.F_Information.GsGcPComments.AddGridviewFromDataview("PCommentsGrid","PComments","PCommentsView")
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","ONUMBER","Visible",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","QNUMBER","Visible",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","WONUMBER","Visible",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","DisplayCustomDatetime","d")
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","MaxWidth",80)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","ReadOnly",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","AllowEdit",True)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","ReadOnly",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","AllowEdit",True)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","QNUMBER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","WONUMBER","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","QNUMBER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","WONUMBER","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcPComments.MainView("PCommentsGrid")
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.CreateDatatables.End
+
+Program.Sub.Populate.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sPGUI.Declare(String)
+v.Local.sPFields.Declare(String)
+v.Local.iCount.Declare(Long)
+v.Local.sHold1.Declare(String)
+v.Local.sHold2.Declare(String)
+
+'Set up values
+f.Intrinsic.String.Split("txtPFName*!*txtPMName*!*txtPLName*!*txtPMPhone*!*ddlPGender*!*dtpPDOB*!*txtPAddress1L1*!*txtPAddress1L2*!*txtPCity1*!*txtPState1*!*txtPZip1*!*txtPCountry1*!*chkStaged*!*dtpStaged*!*chkRev*!*txtPrevCases*!*ddlRevType*!*ddlICD*!*ddlPlanServ*!*txtMRN*!*txtEmail","*!*",v.Local.sPGUI)
+f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*GENDER*!*DATE_BIRTH*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*STAGED*!*STAGED_DATE*!*REVISION*!*PREV_CASES*!*REV_TYPE*!*ICD_CODE*!*PLAN_SERV*!*MRN_NUM*!*EMAIL_ADD","*!*",v.Local.sPFields)
+Gui.F_Information.ddlPGender.AddItem("Female")
+Gui.F_Information.ddlPGender.AddItem("Male")
+'Populate doctors
+f.Data.Dictionary.CreateFromSQL("Doctor","Con","SELECT IDENT, LNAME + ' ' + MNAME + ' ' + FNAME AS NAME FROM GCG_4779_DOCTOR WHERE INACTIVEFLG <> 1 AND LTRIM(RTRIM((LNAME + MNAME + FNAME))) <> '' ORDER BY NAME ASC")
+f.Data.Dictionary.SetDefaultReturn("Doctor","")
+Gui.F_Information.ddlDoctors.AddItem("")
+Gui.F_Information.ddlDoctors.AddItems("Dictionary","Doctor")
+
+f.Data.Dictionary.CreateFromSQL("ICD","Con","SELECT Rec_No, rtrim(ICD_Codes) as ICD FROM GCG_4779_ICD_Codes Order By Rec_No")
+f.Data.Dictionary.SetDefaultReturn("ICD","")
+Gui.F_Information.ddlICD.AddItem("")
+Gui.F_Information.ddlICD.AddItems("Dictionary","ICD")
+
+f.Data.Dictionary.CreateFromSQL("Rev","Con","SELECT Rec_No, rtrim(Revision_Type) as Rev_Type FROM GCG_4779_Rev_Type Order By Rec_No")
+f.Data.Dictionary.SetDefaultReturn("Rev","")
+Gui.F_Information.ddlRevType.AddItem("")
+Gui.F_Information.ddlRevType.AddItems("Dictionary","Rev")
+
+f.Data.Dictionary.CreateFromSQL("Serv","Con","SELECT Rec_No, rtrim(Plan_Serv) as Plan_Serv FROM GCG_4779_Plan_Serv Order By Rec_No")
+f.Data.Dictionary.SetDefaultReturn("Serv","")
+Gui.F_Information.ddlPlanServ.AddItem("")
+Gui.F_Information.ddlPlanServ.AddItems("Dictionary","Serv")
+
+'Populate Patient
+f.Intrinsic.String.Build("SELECT * FROM GCG_4779_PATIENT WHERE ISNULL(QNUMBER,'') = '{0}' AND ISNULL(ONUMBER,'') = '{1}' AND ISNULL(WONUMBER,'') = '{2}' ",v.Global.sQNumber,v.Global.sONumber,v.Global.sWONumber,v.Local.sSQL)
+f.ODBC.Connection!Con.OpenLocalRecordsetRO("rstP",v.Local.sSQL)
+f.Intrinsic.Control.If(v.ODBC.Con!rstP.EOF,=,False)
+	'We have a doctor so populate the info
+	f.Intrinsic.Control.For(v.Local.iCount,v.Local.sPGUI.UBound)
+		v.Local.sHold1.Set(v.Local.sPGUI(v.Local.iCount))
+		v.Local.sHold2.Set(v.Local.sPFields(v.Local.iCount))
+		
+		F.Intrinsic.Control.If(V.Local.sHold1.Left3,=,"dtp")
+			Gui.F_Information.[v.Local.sHold1].Value(v.ODBC.Con!rstP.FieldVal![v.Local.sHold2])
+		F.Intrinsic.Control.ElseIf(V.Local.sHold1.Left3,=,"chk")
+			F.Intrinsic.Control.If(v.ODBC.Con!rstP.FieldVal![v.Local.sHold2])
+				Gui.F_Information.[v.Local.sHold1].Value(1)
+			F.Intrinsic.Control.Else
+				Gui.F_Information.[v.Local.sHold1].Value(0)
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.ElseIf(V.Local.sHold1.Left3,=,"ddl")
+			Gui.F_Information.[v.Local.sHold1].Text(v.ODBC.Con!rstP.FieldValTrim![v.Local.sHold2])
+		F.Intrinsic.Control.Else
+			Gui.F_Information.[v.Local.sHold1].Text(v.ODBC.Con!rstP.FieldValTrim![v.Local.sHold2])
+		F.Intrinsic.Control.EndIf
+		
+	f.Intrinsic.Control.Next(v.Local.iCount)
+	f.Intrinsic.Control.If(v.Dictionary.Doctor![v.ODBC.Con!rstP.FieldVal!DOCTOR],<>,"")
+		Gui.F_Information.ddlDoctors.Text(v.Dictionary.Doctor![v.ODBC.Con!rstP.FieldVal!DOCTOR])
+	f.Intrinsic.Control.Else
+		'Doctor is inactive so we need to manually add them and set it.
+		f.Intrinsic.String.Build("SELECT LNAME + ' ' + MNAME + ' ' + FNAME AS NAME FROM GCG_4779_DOCTOR WHERE IDENT = '{0}' ",v.ODBC.Con!rstP.FieldVal!DOCTOR,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordSetRO("rstdoc",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rstdoc.EOF,=,False)
+			Gui.F_Information.ddlDoctors.AddItem(v.ODBC.Con!rstdoc.FieldVal!NAME)
+			Gui.F_Information.ddlDoctors.Text(v.ODBC.Con!rstdoc.FieldVal!NAME)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rstdoc.Close
+	f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.Else
+	'Patient is blank so lets defalut the DOB to 1/1/1900
+	Gui.F_Information.dtpPDOB.Value(1/1/1900)
+	Gui.F_Information.dtpStaged.Value(V.Ambient.Date)
+	Gui.F_Information.txtPCountry1.Text("USA")
+f.Intrinsic.Control.EndIf
+f.ODBC.Con!rstP.Close
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Populate.End
+
+Program.Sub.MenuClick.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+v.Local.iCount.Declare(Long)
+
+f.Intrinsic.Control.SelectCase(v.Args.MenuName)
+	f.Intrinsic.Control.Case("CTXCOMMENTS")
+		f.Intrinsic.Control.SelectCase(v.Args.ItemName)
+			f.Intrinsic.Control.Case("ADD")
+				f.Data.DataTable.AddRow("PComments","ONUMBER",v.Global.sONumber,"QNUMBER",v.Global.sQNumber,"WONUMBER",v.Global.sWONumber,"Date",v.Ambient.Date)
+				Gui.F_Information.GsGcPComments.GetRowCount("PCommentsGrid",v.Local.iCount)
+				f.Intrinsic.Math.Sub(v.Local.iCount,1,v.Local.iCount)
+				Gui.F_Information.GsGcPComments.FocusCell("PCommentsGrid",v.Local.iCount,0)
+			f.Intrinsic.Control.Case("DELETE")
+				f.Data.DataTable.AcceptChanges("PComments")
+				Gui.F_Information.GsGcPComments.GetSelectedRows("PCommentsGrid",v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+					f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+					f.Intrinsic.String.SortDesc(v.Local.sRet,v.Local.sRet)
+					f.Intrinsic.Control.For(v.Local.iCount,v.Local.sRet.UBound)
+						f.Data.DataTable.DeleteRow("PComments",v.DataView.PComments!PCommentsView(v.Local.sRet(v.Local.iCount)).DataTableIndex)
+					f.Intrinsic.Control.Next(v.Local.iCount)
+					f.Data.DataTable.AcceptChanges("PComments")
+				f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndSelect
+f.Intrinsic.Control.EndSelect
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClick.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sRet.Declare(String)
+v.Local.sDrGui.Declare(String)
+v.Local.sPGUI.Declare(String)
+v.Local.sDrFields.Declare(String)
+v.Local.sPFields.Declare(String)
+v.Local.iCount.Declare(Long)
+v.Local.sHold1.Declare(String)
+v.Local.sHold2.Declare(String)
+
+'Check for required fields before closing the screen and saving
+f.Intrinsic.Control.If(v.Screen.F_Information!txtPFName.Text.Trim,=,"")
+	f.Intrinsic.UI.Msgbox("Please Fill in First Name","Warning")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.If(v.Screen.F_Information!ddlPGender.Text,=,"")
+	f.Intrinsic.UI.Msgbox("Plesae Fill in Gender","Warning")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.If(v.Screen.F_Information!ddlDoctors.Text,=,"")
+	f.Intrinsic.UI.Msgbox("Please fill in Doctor","Warning")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.If(v.Screen.F_Information!dtpPDOB.Value,=,v.Ambient.Date)
+	f.Intrinsic.UI.Msgbox("Please fill in the Date of Birth","Warning")
+	f.Intrinsic.Control.ExitSub
+f.Intrinsic.Control.EndIf
+
+Gui.F_Information..Visible(False)
+
+'Set up values
+'f.Intrinsic.String.Split("txtPFName*!*txtPMName*!*txtPLName*!*txtPMPhone*!*ddlPGender*!*dtpPDOB*!*txtPAddress1L1*!*txtPAddress1L2*!*txtPCity1*!*txtPState1*!*txtPZip1*!*txtPCountry1","*!*",v.Local.sPGUI)
+'f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*GENDER*!*DATE_BIRTH*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1","*!*",v.Local.sPFields)
+f.Intrinsic.String.Split("txtPFName*!*txtPMName*!*txtPLName*!*txtPMPhone*!*ddlPGender*!*dtpPDOB*!*txtPAddress1L1*!*txtPAddress1L2*!*txtPCity1*!*txtPState1*!*txtPZip1*!*txtPCountry1*!*chkStaged*!*dtpStaged*!*chkRev*!*txtPrevCases*!*ddlRevType*!*ddlICD*!*ddlPlanServ*!*txtMRN*!*txtEmail","*!*",v.Local.sPGUI)
+f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*GENDER*!*DATE_BIRTH*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*STAGED*!*STAGED_DATE*!*REVISION*!*PREV_CASES*!*REV_TYPE*!*ICD_CODE*!*PLAN_SERV*!*MRN_NUM*!*EMAIL_ADD","*!*",v.Local.sPFields)
+
+'Save Patient
+f.Intrinsic.String.Build("SELECT * FROM GCG_4779_PATIENT WHERE ISNULL(ONUMBER,'') = '{0}' AND ISNULL(QNUMBER,'') = '{1}' AND ISNULL(WONUMBER,'') = '{2}' ",v.Global.sONumber,v.Global.sQNumber,v.Global.sWONumber,v.Local.sSQL)
+'f.Intrinsic.String.Build("SELECT * FROM GCG_4779_PATIENT WHERE QNUMBER = '{0}'  ",v.Global.sQNumber,v.Local.sSQL)
+f.ODBC.Connection!Con.OpenLocalRecordsetRW("rstP",v.Local.sSQL)
+f.Intrinsic.Control.If(v.ODBC.Con!rstP.EOF,=,True)
+	f.ODBC.Con!rstP.AddNew
+	f.Intrinsic.Control.If(v.Global.sQNumber,<>,"")
+		f.ODBC.Con!rstP.Set!QNUMBER(v.Global.sQNumber)
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.If(v.Global.sONumber,<>,"")
+		f.ODBC.Con!rstP.Set!ONUMBER(v.Global.sONumber)
+	f.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.If(v.Global.sWONumber,<>,"")
+		f.ODBC.Con!rstP.Set!WONUMBER(v.Global.sWONumber)
+	f.Intrinsic.Control.EndIf
+	
+	f.ODBC.Con!rstP.Set!CREATE_DATE(v.Ambient.Date.PervasiveDate)
+	f.ODBC.Con!rstP.Update
+f.Intrinsic.Control.EndIf
+
+f.ODBC.Con!rstP.Requery
+
+'Save the info
+f.Intrinsic.Control.For(v.Local.iCount,v.Local.sPGUI.UBound)
+	v.Local.sHold1.Set(v.Local.sPGUI(v.Local.iCount))
+	v.Local.sHold2.Set(v.Local.sPFields(v.Local.iCount))
+	F.Intrinsic.Control.If(V.Local.sHold1.Left3,=,"chk")
+		F.Intrinsic.Control.If(v.Screen.F_Information![v.Local.sHold1].Value,=,1)
+			f.ODBC.Con!rstP.Set![v.Local.sHold2](True)
+		F.Intrinsic.Control.Else
+			f.ODBC.Con!rstP.Set![v.Local.sHold2](False)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		f.ODBC.Con!rstP.Set![v.Local.sHold2](v.Screen.F_Information![v.Local.sHold1].Text)
+	F.Intrinsic.Control.EndIf
+	f.ODBC.Con!rstP.Update
+f.Intrinsic.Control.Next(v.Local.iCount)
+'Set Doctor
+f.Data.Dictionary.ReturnKeyFromValue("Doctor",v.Screen.F_Information!ddlDoctors.Text,v.Local.sRet)
+f.ODBC.Con!rstP.Set!DOCTOR(v.Local.sRet.Long)
+f.ODBC.Con!rstP.Update
+f.Intrinsic.Control.If(v.Caller.Hook,=,10960)
+	f.ODBC.Con!rstP.Set!CUSTOMER(v.Passed.000006)
+	f.ODBC.Con!rstP.Update
+f.Intrinsic.Control.EndIf
+f.ODBC.Con!rstP.Close
+
+'Save the Grids
+f.Intrinsic.String.Build("DELETE FROM GCG_4779_COMMENTS WHERE ISNULL(QNUMBER,'') = '{0}'  ",v.Global.sQNumber,v.Local.sSQL)
+f.ODBC.Connection!Con.Execute(v.Local.sSQL)
+f.Data.DataTable.SetValue("PComments",-1,"ONUMBER",v.Global.sONumber,"QNUMBER",v.Global.sQNumber,"WONUMBER",v.Global.sWONumber)
+f.Data.DataTable.SaveToDB("PComments","Con","GCG_4779_COMMENTS","ONUMBER*!*QNUMBER*!*WONUMBER",128,"ONUMBER@!@ONUMBER*!*QNUMBER@!@QNUMBER*!*WONUMBER@!@WONUMBER*!*DATE@!@CDATE*!*COMMENTS@!@COMMENTS")
+
+'Update the core Screens.
+f.Intrinsic.Control.If(v.Caller.Hook,=,16670,"OR",v.Caller.Hook,=,13620)
+	f.Intrinsic.String.Build("SELECT B.PREF, LEFT(A.FNAME,1) + LEFT(A.LNAME,1) AS INIT, B.FNAME + ' ' + B.MNAME + ' ' + B.LNAME AS NAME FROM GCG_4779_PATIENT AS A LEFT JOIN GCG_4779_DOCTOR AS B ON A.DOCTOR = B.IDENT WHERE A.WONUMBER = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			V.Passed.GAB-MEMO-1.Set(v.ODBC.Con!rst.FieldVal!PREF)
+			v.Passed.GAB-TEXT-1.Set(v.ODBC.Con!rst.FieldVal!INIT)
+			V.Passed.GAB-TEXT-2.Set(v.ODBC.Con!rst.FieldVal!NAME)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.Relations.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+
+f.Intrinsic.Control.If(v.Args.Type,=,"W")
+	'We need to get Order Number associated to the WO we are on
+	f.Intrinsic.String.Build("SELECT SALES_ORDER FROM V_JOB_HEADER WHERE JOB + '-' + SUFFIX = '{0}' AND SALES_ORDER <> '0000000' ",v.Global.sWONumber,v.Local.sSQL)
+	f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+	f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+		v.Global.sONumber.Set(v.ODBC.Con!rst.FieldVal!SALES_ORDER)
+	f.Intrinsic.Control.EndIf
+	f.ODBC.Con!rst.Close
+	f.Intrinsic.Control.If(v.Global.sONumber,=,"")
+		'Order is blank, lets just make sure it is not in the other table
+		f.Intrinsic.String.Build("SELECT ORDER_NO FROM V_ORDER_TO_WO WHERE JOB + '-' + SUFFIX = '{0}' ",v.Global.sWONumber,v.Local.sSQL)
+		f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+		f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+			v.Global.sONumber.Set(v.ODBC.Con!rst.FieldVal!ORDER_NO)
+		f.Intrinsic.Control.EndIf
+		f.ODBC.Con!rst.Close
+	f.Intrinsic.Control.EndIf
+f.Intrinsic.Control.EndIf
+
+'We should have an order Number by now
+f.Intrinsic.Control.If(v.Global.sONumber,<>,"")
+	'Get Quote Number
+	f.Intrinsic.String.Build("SELECT QUOTE FROM V_ORDER_HEADER WHERE ORDER_NO = '{0}' AND QUOTE <> '' ",v.Global.sONumber,v.Local.sSQL)
+	f.ODBC.Connection!Con.OpenLocalRecordSetRO("rst",v.Local.sSQL)
+	f.Intrinsic.Control.If(v.ODBC.Con!rst.EOF,=,False)
+		v.Global.sQNumber.Set(v.ODBC.Con!rst.FieldVal!QUOTE)
+	f.Intrinsic.Control.EndIf
+	f.ODBC.Con!rst.Close
+f.Intrinsic.Control.EndIf
+
+f.Intrinsic.Control.If(v.Args.Update,=,"Y")
+	'We are going to update the tables with the new values
+	f.Intrinsic.String.Build("UPDATE GCG_4779_PATIENT SET ONUMBER = '{0}', WONUMBER = '{1}' WHERE QNUMBER = '{2}' ",v.Global.sONumber,v.Global.sWONumber,v.Global.sQNumber,v.Local.sSQL)
+	f.ODBC.Connection!Con.Execute(v.Local.sSQL)
+	f.Intrinsic.String.Build("UPDATE GCG_4779_COMMENTS SET ONUMBER = '{0}', WONUMBER = '{1}' WHERE QNUMBER = '{2}' ",v.Global.sONumber,v.Global.sWONumber,v.Global.sQNumber,v.Local.sSQL)
+	f.ODBC.Connection!Con.Execute(v.Local.sSQL)
+f.Intrinsic.Control.EndIf
+
+
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Relations.End
+
+Program.Sub.ViewMode.Start
+F.Intrinsic.Control.Try
+
+v.Local.sPGUI.Declare(String)
+v.Local.sHold.Declare(String)
+v.Local.iCount.Declare(Long)
+
+
+f.Intrinsic.String.Split("txtPFName*!*txtPMName*!*txtPLName*!*txtPMPhone*!*ddlPGender*!*dtpPDOB*!*txtPAddress1L1*!*txtPAddress1L2*!*txtPCity1*!*txtPState1*!*txtPZip1*!*txtPCountry1*!*ddlDoctors*!*cmdSave","*!*",v.Local.sPGUI)
+f.Intrinsic.Control.For(v.Local.iCount,v.Local.sPGUI.UBound)
+	v.Local.sHold.Set(v.Local.sPGUI(v.Local.iCount))
+	Gui.F_Information.[v.Local.sHold].Enabled(False)
+f.Intrinsic.Control.Next(v.Local.iCount)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","ReadOnly",True)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Date","AllowEdit",False)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","ReadOnly",True)
+Gui.F_Information.GsGcPComments.SetColumnProperty("PCommentsGrid","Comments","AllowEdit",False)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.ViewMode.End
+
+Program.Sub.F_CRM_UnLoad.Start
+f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+Program.Sub.F_CRM_UnLoad.End
+
+Program.Sub.cmdSelect_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+'Get the Selected Row and let it continue the script
+Gui.F_CRM.GsGcList.GetSelectedRows("GridList",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"","AND",v.Local.sRet,<>,-1)
+	f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+	v.Global.sQNumber.Set(v.DataTable.List(v.DataView.List!Listview(v.Local.sRet).DataTableIndex).Quote!FieldVal)
+	v.Global.sONumber.Set(v.DataTable.List(v.DataView.List!Listview(v.Local.sRet).DataTableIndex).Order!FieldVal)
+	v.Global.sWONumber.Set(v.DataTable.List(v.DataView.List!Listview(v.Local.sRet).DataTableIndex).Job!FieldVal)
+	Gui.F_CRM..Visible(False)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+
+Program.Sub.cmdSelect_Click.End
+
+Program.Sub.GsGcList_RowCellClick.Start
+F.Intrinsic.Control.Try
+
+'We need to only do something if it is a double click
+f.Intrinsic.Control.If(v.Args.Clicks,=,2)
+	'We need to get set the global variables
+	v.Global.sQNumber.Set(v.DataTable.List(v.Args.RowHandle).Quote!FieldVal)
+	v.Global.sONumber.Set(v.DataTable.List(v.Args.RowHandle).Order!FieldVal)
+	v.Global.sWONumber.Set(v.DataTable.List(v.Args.RowHandle).Job!FieldVal)
+	Gui.F_CRM..Visible(False)
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.GsGcList_RowCellClick.End
+
+Program.Sub.LoadList.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+
+'Load the grid based on the Customer.
+
+f.Intrinsic.String.Build("SELECT A.QNUMBER AS Quote, A.ONUMBER AS 'Order', A.WONUMBER AS Job, B.FNAME + ' ' + B.MNAME + ' ' + B.LNAME AS Doctor, B.STATE1 as State FROM GCG_4779_PATIENT AS A LEFT JOIN GCG_4779_DOCTOR AS B ON A.DOCTOR = B.IDENT WHERE A.CUSTOMER = '{0}' ORDER BY A.QNUMBER ASC, A.ONUMBER ASC, A.WONUMBER ASC ",v.Args.Customer,v.Local.sSQL)
+f.Data.DataTable.CreateFromSQL("List","Con",v.Local.sSQL,True)
+f.Data.DataView.Create("List","Listview",22)
+Gui.F_CRM.GsGcList.AddGridviewFromDataview("GridList","List","Listview")
+Gui.F_CRM.GsGcList.SetGridviewProperty("GridList","ReadOnly",True)
+Gui.F_CRM.GsGcList.SetGridviewProperty("GridList","Editable",False)
+Gui.F_CRM.GsGcList.MainView("GridList")
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.LoadList.End
