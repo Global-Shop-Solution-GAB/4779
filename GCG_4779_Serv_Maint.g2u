@@ -1,0 +1,243 @@
+Program.Sub.ScreenSU.Start
+Gui.FormServ..Create
+Gui.FormServ..Caption("Planning Service Maintenance")
+Gui.FormServ..Size(6465,8640)
+Gui.FormServ..MinX(0)
+Gui.FormServ..MinY(0)
+Gui.FormServ..Position(0,0)
+Gui.FormServ..BackColor(-2147483633)
+Gui.FormServ..MousePointer(0)
+Gui.FormServ..Event(UnLoad,FormServ_UnLoad)
+Gui.FormServ.lblServ.Create(Label,"Planning Service",True,1935,255,0,150,270,True,0,"Arial",8,-2147483633,0)
+Gui.FormServ.txtServ.Create(TextBox,"",True,5070,300,0,150,525,True,0,"Arial",8,-2147483643,1)
+Gui.FormServ.txtServ.MaxLength(50)
+Gui.FormServ.txtServ.Event(GotFocus,TxtServ_GotFocus)
+Gui.FormServ.cmdAdd.Create(Button)
+Gui.FormServ.cmdAdd.Size(855,375)
+Gui.FormServ.cmdAdd.Position(5385,480)
+Gui.FormServ.cmdAdd.Caption("Add")
+Gui.FormServ.cmdAdd.Event(Click,cmdAdd_Click)
+Gui.FormServ.GsGridServ.Create(GsGridControl)
+Gui.FormServ.GsGridServ.Size(6075,6570)
+Gui.FormServ.GsGridServ.Position(165,990)
+Gui.FormServ.GsGridServ.Event(RowCellClick,GsGridServ_RowCellClick)
+Gui.FormServ.cmdSave.Create(Button)
+Gui.FormServ.cmdSave.Size(855,375)
+Gui.FormServ.cmdSave.Position(165,7680)
+Gui.FormServ.cmdSave.Caption("Save")
+Gui.FormServ.cmdSave.Event(Click,cmdSave_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.SetErrorHandler("Main_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.CallSub(Get_Data)
+F.Intrinsic.Control.CallSub(Set_Properties)
+
+Gui.FormServ..Show
+
+Gui.FormServ..AlwaysOnTop(True)
+Gui.FormServ..AlwaysOnTop(False)
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Main_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Main.End
+
+Program.Sub.GsGridServ_RowCellClick.Start
+F.Intrinsic.Control.SetErrorHandler("GsGridServ_RowCellClick_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.If(V.Args.Column.UCase,=,"DELETE_ROW")
+	F.Data.DataTable.DeleteRow("Serv",V.Args.RowIndex)
+	F.Data.DataTable.AcceptChanges("Serv")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("GsGridServ_RowCellClick_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.GsGridServ_RowCellClick.End
+
+Program.Sub.FormServ_UnLoad.Start
+F.Intrinsic.Control.SetErrorHandler("FormServ_UnLoad_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.Intrinsic.Control.End
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("FormServ_UnLoad_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.Control.End
+Function.Intrinsic.Control.EndIf
+Program.Sub.FormServ_UnLoad.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdSave_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+F.ODBC.Connection!Con.OpenCompanyConnection
+
+gui.FormServ.GsGridServ.SuspendLayout
+
+F.ODBC.Connection!Con.Execute("Delete From GCG_4779_Plan_Serv")
+
+F.Data.DataTable.SaveToDB("Serv","con","GCG_4779_Plan_Serv","Rec_No",256,"Rec_No@!@Rec_No*!*Plan_Serv@!@Plan_Serv")
+
+F.Data.DataTable.CreateFromSQL("ServTemp","con","Select Rec_No, Plan_Serv From GCG_4779_Plan_Serv Order by Rec_No",True)
+
+F.Data.DataTable.DeleteRow("Serv")
+F.Data.DataTable.AcceptChanges("Serv")
+
+F.Data.DataTable.Merge("ServTemp","Serv",False,2)
+
+F.Data.DataTable.Close("ServTemp")
+
+gui.FormServ.GsGridServ.ResumeLayout
+
+F.Intrinsic.UI.Msgbox("Planning Services Saved...........")
+
+F.ODBC.Connection!Con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdSave_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.TxtServ_GotFocus.Start
+F.Intrinsic.Control.SetErrorHandler("TxtServ_GotFocus_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+gui.FormServ.txtServ.SelectAll
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("TxtServ_GotFocus_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.TxtServ_GotFocus.End
+
+Program.Sub.Get_Data.Start
+F.Intrinsic.Control.SetErrorHandler("Get_Data_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sSql.Declare(String,"")
+
+F.ODBC.Connection!con.OpenCompanyConnection
+
+F.Data.DataTable.CreateFromSQL("Serv","con","Select Rec_No, Plan_Serv From GCG_4779_Plan_Serv Order by Rec_No",True)
+
+F.Data.DataTable.AddColumn("Serv","Delete_Row",String)
+
+F.ODBC.Connection!con.Close
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Get_Data_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Get_Data.End
+
+Program.Sub.Set_Properties.Start
+F.Intrinsic.Control.SetErrorHandler("Set_Properties_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+
+gui.FormServ.GsGridServ.AddGridviewFromDatatable("GICD","Serv")
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","Visible",False)
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","AllowEdit",False)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Plan_Serv","AllowEdit",True)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Delete_Row","AllowEdit",False)
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","ReadOnly",True)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Plan_Serv","ReadOnly",False)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Delete_Row","ReadOnly",True)
+
+gui.FormServ.GsGridServ.ColumnEdit("GICD","Delete_Row","EditorButton","Delete")
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Plan_Serv","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Delete_Row","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Plan_Serv","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Delete_Row","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Rec_No","Caption","Record No")
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Plan_Serv","Caption","Planning Service")
+gui.FormServ.GsGridServ.SetColumnProperty("GICD","Delete_Row","Caption"," ")
+
+gui.FormServ.GsGridServ.MainView("GICD")
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("Set_Properties_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.Set_Properties.End
+
+Program.Sub.cmdAdd_Click.Start
+F.Intrinsic.Control.SetErrorHandler("cmdAdd_Click_Err")
+F.Intrinsic.Control.ClearErrors
+
+V.Local.sError.Declare(String,"")
+V.Local.sType.Declare(String,"")
+
+V.Local.sType.Set(V.Screen.FormServ!txtServ.Text)
+
+F.Intrinsic.Control.If(V.Local.sType.Trim,<>,"")
+	F.Data.DataTable.AddRow("Serv","Rec_No",0,"Plan_Serv",v.Local.sType.Trim)
+	gui.FormServ.txtServ.Text("")
+F.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.ExitSub
+
+F.Intrinsic.Control.Label("cmdAdd_Click_Err")
+F.Intrinsic.Control.If(V.Ambient.ErrorNumber,<>,0)
+	F.Intrinsic.String.Build("Project: GCG_4779_Serv_Maint.g2u {0}{0}Subroutine: {1}{0}Error Occurred {2} with description {3}",V.Ambient.NewLine,V.Ambient.CurrentSubroutine,V.Ambient.ErrorNumber,V.Ambient.ErrorDescription,V.Local.sError)
+	F.Intrinsic.UI.Msgbox(V.Local.sError)
+	F.Intrinsic.Control.CallSub(FormServ_UnLoad)
+Function.Intrinsic.Control.EndIf
+Program.Sub.cmdAdd_Click.End
