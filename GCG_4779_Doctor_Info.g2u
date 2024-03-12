@@ -1,0 +1,585 @@
+Program.Sub.ScreenSU.Start
+Gui.F_Information..Create
+Gui.F_Information..Caption("Doctor Information")
+Gui.F_Information..Size(14055,9315)
+Gui.F_Information..MinX(0)
+Gui.F_Information..MinY(0)
+Gui.F_Information..Position(0,0)
+Gui.F_Information..BackColor(-2147483633)
+Gui.F_Information..MousePointer(0)
+Gui.F_Information..Event(UnLoad,F_Information_UnLoad)
+Gui.F_Information..ContextMenuCreate("ctxContacts")
+Gui.F_Information..ContextMenuCreate("ctxComments")
+Gui.F_Information..ContextMenuCreate("ctxPreference")
+Gui.F_Information..ContextMenuAddItem("ctxContacts","ADD",0,"Add Row")
+Gui.F_Information..ContextMenuAddItem("ctxContacts","DELETE",0,"Delete Row")
+Gui.F_Information..ContextMenuAddItem("ctxComments","ADD",0,"Add Row")
+Gui.F_Information..ContextMenuAddItem("ctxComments","DELETE",0,"Delete Row")
+Gui.F_Information..ContextMenuAddItem("ctxPreference","ADD",0,"Add Row")
+Gui.F_Information..ContextMenuAddItem("ctxPreference","DELETE",0,"Delete Row")
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxContacts","ADD",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxContacts","DELETE",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxComments","ADD",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxComments","DELETE",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxPreference","ADD",MenuClick)
+Gui.F_Information..ContextMenuSetItemEventHandler("ctxPreference","DELETE",MenuClick)
+Gui.F_Information.lbl1.Create(Label,"First Name",True,1200,255,0,105,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrFName.Create(TextBox,"",True,3435,300,0,105,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrFName.MaxLength(30)
+Gui.F_Information.txtDrFName.TabStop(True)
+Gui.F_Information.txtDrFName.TabIndex(1)
+Gui.F_Information.lbl2.Create(Label,"MI",True,390,255,0,3690,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrMName.Create(TextBox,"",True,495,300,0,3690,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrMName.MaxLength(1)
+Gui.F_Information.txtDrMName.TabStop(True)
+Gui.F_Information.txtDrMName.TabIndex(2)
+Gui.F_Information.lbl3.Create(Label,"Last Name",True,1005,255,0,4365,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrLName.Create(TextBox,"",True,3435,300,0,4365,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrLName.MaxLength(30)
+Gui.F_Information.txtDrLName.TabStop(True)
+Gui.F_Information.txtDrLName.TabIndex(3)
+Gui.F_Information.lbl4.Create(Label,"Address",True,870,255,0,105,720,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrAddress1L1.Create(TextBox,"",True,4140,300,0,105,930,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrAddress1L1.MaxLength(30)
+Gui.F_Information.txtDrAddress1L1.TabStop(True)
+Gui.F_Information.txtDrAddress1L1.TabIndex(6)
+Gui.F_Information.lbl5.Create(Label,"Address Line 2",True,1380,255,0,105,1320,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrAddress1L2.Create(TextBox,"",True,4140,300,0,105,1530,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrAddress1L2.MaxLength(30)
+Gui.F_Information.txtDrAddress1L2.TabStop(True)
+Gui.F_Information.txtDrAddress1L2.TabIndex(7)
+Gui.F_Information.lbl6.Create(Label,"City",True,630,255,0,105,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrCity1.Create(TextBox,"",True,1980,300,0,105,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrCity1.MaxLength(30)
+Gui.F_Information.txtDrCity1.TabStop(True)
+Gui.F_Information.txtDrCity1.TabIndex(8)
+Gui.F_Information.lbl7.Create(Label,"State",True,630,255,0,2280,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrState1.Create(TextBox,"",True,645,300,0,2250,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrState1.MaxLength(2)
+Gui.F_Information.txtDrState1.Mask(">")
+Gui.F_Information.txtDrState1.TabStop(True)
+Gui.F_Information.txtDrState1.TabIndex(9)
+Gui.F_Information.lbl8.Create(Label,"Zip Code",True,930,255,0,3045,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrZip1.Create(TextBox,"",True,1215,300,0,3045,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrZip1.MaxLength(9)
+Gui.F_Information.txtDrZip1.TabStop(True)
+Gui.F_Information.txtDrZip1.TabIndex(10)
+Gui.F_Information.lbl9.Create(Label,"Country",True,840,255,0,105,2520,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrCountry1.Create(TextBox,"",True,1215,300,0,105,2730,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrCountry1.MaxLength(30)
+Gui.F_Information.txtDrCountry1.TabStop(True)
+Gui.F_Information.txtDrCountry1.TabIndex(11)
+Gui.F_Information.lbl13.Create(Label,"Address 2",True,870,255,0,4590,720,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrAddress2L1.Create(TextBox,"",True,4140,300,0,4590,930,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrAddress2L1.MaxLength(30)
+Gui.F_Information.txtDrAddress2L1.TabStop(True)
+Gui.F_Information.txtDrAddress2L1.TabIndex(12)
+Gui.F_Information.lbl14.Create(Label,"Address 2 Line 2",True,1380,255,0,4590,1320,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrAddress2L2.Create(TextBox,"",True,4140,300,0,4590,1530,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrAddress2L2.MaxLength(30)
+Gui.F_Information.txtDrAddress2L2.TabStop(True)
+Gui.F_Information.txtDrAddress2L2.TabIndex(13)
+Gui.F_Information.lbl15.Create(Label,"City 2",True,630,255,0,4590,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrCity2.Create(TextBox,"",True,1980,300,0,4590,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrCity2.MaxLength(30)
+Gui.F_Information.txtDrCity2.TabStop(True)
+Gui.F_Information.txtDrCity2.TabIndex(14)
+Gui.F_Information.lbl16.Create(Label,"State 2",True,675,255,0,6720,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrState2.Create(TextBox,"",True,645,300,0,6720,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrState2.MaxLength(2)
+Gui.F_Information.txtDrState2.TabStop(True)
+Gui.F_Information.txtDrState2.TabIndex(15)
+Gui.F_Information.lbl17.Create(Label,"Zip Code 2",True,930,255,0,7515,1920,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrZip2.Create(TextBox,"",True,1215,300,0,7515,2130,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrZip2.MaxLength(9)
+Gui.F_Information.txtDrZip2.TabStop(True)
+Gui.F_Information.txtDrZip2.TabIndex(16)
+Gui.F_Information.txtDrCountry2.Create(TextBox,"",True,1215,300,0,4590,2730,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrCountry2.MaxLength(30)
+Gui.F_Information.txtDrCountry2.TabStop(True)
+Gui.F_Information.txtDrCountry2.TabIndex(17)
+Gui.F_Information.lbl18.Create(Label,"Country 2",True,840,255,0,4590,2520,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.lbl10.Create(Label,"Main Phone #",True,1260,255,0,11460,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.txtDrMPhone.Create(TextBox,"",True,2355,300,0,11460,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrMPhone.MaxLength(30)
+Gui.F_Information.txtDrMPhone.TabStop(True)
+Gui.F_Information.txtDrMPhone.TabIndex(5)
+Gui.F_Information.GsGcDrContacts.Create(GsGridControl)
+Gui.F_Information.GsGcDrContacts.Size(9990,1605)
+Gui.F_Information.GsGcDrContacts.Position(105,3465)
+Gui.F_Information.GsGcDrContacts.ContextmenuAttach("ctxContacts")
+Gui.F_Information.GsGcDrContacts.TabStop(True)
+Gui.F_Information.GsGcDrContacts.TabIndex(18)
+Gui.F_Information.lbl11.Create(Label,"Contacts",True,945,255,0,105,3255,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.lbl12.Create(Label,"Preferences",True,1935,255,0,10305,3255,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.lvwDrPref.Create(ListView)
+Gui.F_Information.lvwDrPref.Size(3510,1575)
+Gui.F_Information.lvwDrPref.Position(10305,3465)
+Gui.F_Information.lvwDrPref.View(3)
+Gui.F_Information.lvwDrPref.AddListViewColumn("Preference",3100,0)
+Gui.F_Information.lvwDrPref.ContextMenuAttach("ctxPreference")
+Gui.F_Information.lvwDrPref.TabStop(True)
+Gui.F_Information.lvwDrPref.TabIndex(19)
+Gui.F_Information.GsGcDrComments.Create(GsGridControl)
+Gui.F_Information.GsGcDrComments.Size(13725,2895)
+Gui.F_Information.GsGcDrComments.Position(105,5400)
+Gui.F_Information.GsGcDrComments.ContextmenuAttach("ctxComments")
+Gui.F_Information.GsGcDrComments.Anchor(14)
+Gui.F_Information.GsGcDrComments.TabStop(True)
+Gui.F_Information.GsGcDrComments.TabIndex(20)
+Gui.F_Information.lbl19.Create(Label,"Comments",True,1935,255,0,105,5190,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.cmdSave.Create(Button)
+Gui.F_Information.cmdSave.Size(855,375)
+Gui.F_Information.cmdSave.Position(105,8520)
+Gui.F_Information.cmdSave.Anchor(6)
+Gui.F_Information.cmdSave.Caption("Save")
+Gui.F_Information.cmdSave.Event(Click,cmdSave_Click)
+Gui.F_Information.cmdSave.TabStop(True)
+Gui.F_Information.cmdSave.TabIndex(21)
+Gui.F_Information.txtDrTitle.Create(TextBox,"",True,2550,300,0,8745,315,True,0,"Arial",8,-2147483643,1)
+Gui.F_Information.txtDrTitle.MaxLength(20)
+Gui.F_Information.txtDrTitle.TabStop(True)
+Gui.F_Information.txtDrTitle.TabIndex(4)
+Gui.F_Information.lbl20.Create(Label,"Title",True,870,255,0,8745,105,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.cmdBrow.Create(Button)
+Gui.F_Information.cmdBrow.Size(570,375)
+Gui.F_Information.cmdBrow.Position(7950,270)
+Gui.F_Information.cmdBrow.Caption("^")
+Gui.F_Information.cmdBrow.Event(Click,cmdBrow_Click)
+Gui.F_Information.cmdNew.Create(Button)
+Gui.F_Information.cmdNew.Size(855,375)
+Gui.F_Information.cmdNew.Position(1170,8520)
+Gui.F_Information.cmdNew.Caption("New")
+Gui.F_Information.cmdNew.Event(Click,cmdNew_Click)
+Gui.F_Information.cmdNew.Anchor(6)
+Gui.F_Information.cmdNew.TabStop(True)
+Gui.F_Information.cmdNew.TabIndex(22)
+Gui.F_Information.chkInactive.Create(CheckBox)
+Gui.F_Information.chkInactive.Size(1560,360)
+Gui.F_Information.chkInactive.Position(9630,900)
+Gui.F_Information.chkInactive.Caption("Inactive")
+Gui.F_Information.lblQSO.Create(Label,"Quote / Sales Order",True,1935,255,0,9270,1335,True,0,"Arial",8,-2147483633,0)
+Gui.F_Information.chkWithDollars.Create(CheckBox)
+Gui.F_Information.chkWithDollars.Size(1560,360)
+Gui.F_Information.chkWithDollars.Position(9630,1590)
+Gui.F_Information.chkWithDollars.Caption("with $")
+Gui.F_Information.chkWithDollars.Event(Click,chkWithDollars_Click)
+Gui.F_Information.chkNoDollars.Create(CheckBox)
+Gui.F_Information.chkNoDollars.Size(1560,360)
+Gui.F_Information.chkNoDollars.Position(9630,1980)
+Gui.F_Information.chkNoDollars.Caption("no $")
+Gui.F_Information.chkNoDollars.Event(Click,chkNoDollars_Click)
+Program.Sub.ScreenSU.End
+
+Program.Sub.Preflight.Start
+v.Global.iIdent.Declare(Long,-1)
+Program.Sub.Preflight.End
+
+Program.Sub.Main.Start
+F.Intrinsic.Control.Try
+
+f.ODBC.Connection!Con.OpenConnection(v.Ambient.PDSN,v.Ambient.PUser,v.Ambient.PPass)
+
+'Populate the Screen
+f.Intrinsic.Control.CallSub(Populate)
+'Populate Grids
+f.Intrinsic.Control.CallSub(CreateDatatables)
+
+Gui.F_Information..Show
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Main.End
+
+Program.Sub.F_Information_UnLoad.Start
+f.ODBC.Connection!Con.Close
+f.Intrinsic.Control.End
+Program.Sub.F_Information_UnLoad.End
+
+Program.Sub.TryCatch.Start
+v.Local.sError.Declare(String)
+Function.Intrinsic.String.Concat("Project: GCG_47799_Doctor_Info.g2u",V.Ambient.Newline,V.Ambient.Newline,"Subroutine: ",v.Args.Sub,V.Ambient.NewLine,"Error Occurred ",V.Args.Error," with description ",v.Args.Desc,V.Local.sError)
+F.Intrinsic.UI.Msgbox(V.Local.sError)
+f.Intrinsic.Control.CallSub(F_Information_UnLoad)
+Program.Sub.TryCatch.End
+
+Program.Sub.CreateDatatables.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+
+f.Intrinsic.Control.If(v.DataTable.DrContacts.Exists,=,True)
+	f.Data.DataTable.Close("DrContacts")
+f.Intrinsic.Control.EndIf
+f.Intrinsic.String.Build("SELECT Quote_SO, CNAME AS Name, TITLE AS Title, EMAIL AS Email, PHONE AS Phone, IDENT FROM GCG_4779_CONTACTS WHERE IDENT = '{0}' ORDER BY CNAME ASC",v.Global.iIdent,v.Local.sSQL)
+f.Data.DataTable.CreateFromSQL("DrContacts","Con",v.Local.sSQL,True)
+f.Data.DataView.Create("DrContacts","DrContactsView",22)
+Gui.F_Information.GsGcDrContacts.AddGridviewFromDataview("DrContactsGrid","DrContacts","DrContactsView")
+'Set Grid properties
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","IDENT","Visible",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","MaxWidth",61)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","ReadOnly",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","AllowEdit",True)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","Caption","Quote/SO")
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Name","MaxLength",61)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Name","ReadOnly",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Name","AllowEdit",True)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Title","MaxLength",30)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Title","ReadOnly",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Title","AllowEdit",True)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Email","MaxLength",60)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Email","ReadOnly",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Email","AllowEdit",True)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Phone","MaxLength",30)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Phone","ReadOnly",False)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Phone","AllowEdit",True)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","IDENT","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Name","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Title","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Email","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Phone","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Quote_SO","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","IDENT","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Name","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Title","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Email","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrContacts.SetColumnProperty("DrContactsGrid","Phone","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+Gui.F_Information.GsGcDrContacts.MainView("DrContactsGrid")
+
+f.Intrinsic.Control.If(v.DataTable.DrComments.Exists,=,True)
+	f.Data.DataTable.Close("DrComments")
+f.Intrinsic.Control.EndIf
+f.Intrinsic.String.Build("SELECT CDATE AS Date, COMMENTS AS Comments, IDENT FROM GCG_4779_COMMENTS WHERE IDENT = '{0}' ORDER BY CDATE ASC",v.Global.iIdent,v.Local.sSQL)
+f.Data.DataTable.CreateFromSQL("DrComments","Con",v.Local.sSQL,True)
+f.Data.DataView.Create("DrComments","DrCommentsView",22)
+Gui.F_Information.GsGcDrComments.AddGridviewFromDataview("DrCommentsGrid","DrComments","DrCommentsView")
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","IDENT","Visible",False)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","DisplayCustomDatetime","d")
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","MaxWidth",80)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","ReadOnly",False)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","AllowEdit",True)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Comments","ReadOnly",False)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Comments","AllowEdit",True)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","IDENT","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Comments","HeaderBackColor",V.Enum.ThemeColors!ThemeColorDark)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","IDENT","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Date","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+Gui.F_Information.GsGcDrComments.SetColumnProperty("DrCommentsGrid","Comments","HeaderForeColor",V.Enum.ThemeColors!TextOnThemeColor)
+
+Gui.F_Information.GsGcDrComments.MainView("DrCommentsGrid")
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.CreateDatatables.End
+
+Program.Sub.Populate.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sDrGUI.Declare(String)
+v.Local.sDrFields.Declare(String)
+v.Local.iCount.Declare(Long)
+v.Local.sHold1.Declare(String)
+v.Local.sHold2.Declare(String)
+
+'Set up values
+f.Intrinsic.String.Split("txtDrFName*!*txtDrMName*!*txtDrLName*!*txtDrMPhone*!*txtDrAddress1L1*!*txtDrAddress1L2*!*txtDrCity1*!*txtDrState1*!*txtDrZip1*!*txtDrCountry1*!*txtDrAddress2L1*!*txtDrAddress2L2*!*txtDrCity2*!*txtDrState2*!*txtDrZip2*!*txtDrCountry2*!*txtDrTitle*!*chkNoDollars","*!*",v.Local.sDrGUI)
+f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*ADDRESS2L1*!*ADDRESS2L2*!*CITY2*!*STATE2*!*ZIP_CODE2*!*COUNTRY2*!*TITLE*!*QUOTE_WITH","*!*",v.Local.sDrFields)
+
+'Populate Doctor First
+f.Intrinsic.String.Build("SELECT * FROM GCG_4779_DOCTOR WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+f.ODBC.Connection!Con.OpenLocalRecordsetRO("rstDr",v.Local.sSQL)
+f.Intrinsic.Control.If(v.ODBC.Con!rstDr.EOF,=,False)
+	'We have a doctor so populate the info
+	f.Intrinsic.Control.For(v.Local.iCount,v.Local.sDrGUI.UBound)
+		v.Local.sHold1.Set(v.Local.sDrGUI(v.Local.iCount))
+		v.Local.sHold2.Set(v.Local.sDrFields(v.Local.iCount))
+		F.Intrinsic.Control.If(V.Local.sHold1,=,"chkNoDollars")
+			F.Intrinsic.Control.If(v.ODBC.Con!rstDr.FieldVal![v.Local.sHold2])
+				F.Intrinsic.Control.BlockEvents
+				Gui.F_Information.chkWithDollars.Value(1)
+				Gui.F_Information.chkNoDollars.Value(0)
+				F.Intrinsic.Control.UnBlockEvents
+			F.Intrinsic.Control.Else
+				F.Intrinsic.Control.BlockEvents
+				Gui.F_Information.chkWithDollars.Value(0)
+				Gui.F_Information.chkNoDollars.Value(1)
+				F.Intrinsic.Control.UnBlockEvents
+			F.Intrinsic.Control.EndIf
+		F.Intrinsic.Control.Else
+			Gui.F_Information.[v.Local.sHold1].Text(v.ODBC.Con!rstDr.FieldVal![v.Local.sHold2])
+		F.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Next(v.Local.iCount)
+	'Set the Preferences lvw
+	f.Intrinsic.String.Split(v.ODBC.Con!rstDr.FieldVal!PREF,v.Ambient.NewLine,v.Local.sDrFields)
+	f.Intrinsic.Control.If(v.Local.sDrFields.Trim,<>,"")
+		f.Intrinsic.Control.For(v.Local.iCount,v.Local.sDrFields.UBound)
+			'Looping through each preference and adding it to the lvw
+			Gui.F_Information.lvwDrPref.AddListItem(v.Local.sDrFields(v.Local.iCount),v.Local.sDrFields(v.Local.iCount))
+		f.Intrinsic.Control.Next(v.Local.iCount)
+	f.Intrinsic.Control.EndIf
+	'Set the Doctor inactive flag
+	Gui.F_Information.chkInactive.Value(v.ODBC.Con!rstDr.FieldVal!INACTIVEFLG)
+f.Intrinsic.Control.Else
+	'We don't have a doctor so populate blanks
+	f.Intrinsic.Control.For(v.Local.iCount,v.Local.sDrGUI.UBound)
+		v.Local.sHold1.Set(v.Local.sDrGUI(v.Local.iCount))
+		F.Intrinsic.Control.If(V.Local.sHold1,=,"chkNoDollars")
+			F.Intrinsic.Control.BlockEvents
+			Gui.F_Information.chkWithDollars.Value(0)
+			Gui.F_Information.chkNoDollars.Value(1)
+			F.Intrinsic.Control.UnBlockEvents
+		F.Intrinsic.Control.Else
+			Gui.F_Information.[v.Local.sHold1].Text("")
+		F.Intrinsic.Control.EndIf
+	f.Intrinsic.Control.Next(v.Local.iCount)
+	'Set the Preferences lvw
+	Gui.F_Information.lvwDrPref.ClearItems
+	gUI.F_Information.chkInactive.Value(False)
+f.Intrinsic.Control.EndIf
+f.ODBC.Con!rstDr.Close
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.Populate.End
+
+Program.Sub.MenuClick.Start
+F.Intrinsic.Control.Try
+
+v.Local.bExist.Declare(Boolean)
+v.Local.sRet.Declare(String)
+v.Local.iCount.Declare(Long)
+
+f.Intrinsic.Control.SelectCase(v.Args.MenuName)
+	f.Intrinsic.Control.Case("CTXPREFERENCE")
+		f.Intrinsic.Control.SelectCase(v.Args.ItemName)
+			f.Intrinsic.Control.Case("ADD")
+				f.Intrinsic.UI.Browser("Preference","Con","SELECT PREF FROM GCG_4779_PREF_MAINT ORDER BY PREF ASC","Preference","800",v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+					Gui.F_Information.lvwDrPref.KeyExist(v.Local.sRet.Trim,v.Local.bExist)
+					f.Intrinsic.Control.If(v.Local.bExist,=,False)
+						Gui.F_Information.lvwDrPref.AddListItem(v.Local.sRet.Trim,v.Local.sRet.Trim)
+					f.Intrinsic.Control.EndIf
+				f.Intrinsic.Control.EndIf
+			f.Intrinsic.Control.Case("DELETE")
+				Gui.F_Information.lvwDrPref.RetrieveSelectedListitems(v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+					f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+					f.Intrinsic.Control.For(v.Local.iCount,v.Local.sRet.UBound)
+						Gui.F_Information.lvwDrPref.RemoveItem(v.Local.sRet(v.Local.iCount))
+					f.Intrinsic.Control.Next(v.Local.iCount)
+				f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndSelect
+	f.Intrinsic.Control.Case("CTXCONTACTS")
+		f.Intrinsic.Control.SelectCase(v.Args.ItemName)
+			f.Intrinsic.Control.Case("ADD")
+				f.Data.DataTable.AddRow("DrContacts","IDENT",v.Global.iIdent,"Quote_SO",0)
+				Gui.F_Information.GsGcDrContacts.GetRowCount("DrContactsGrid",v.Local.iCount)
+				f.Intrinsic.Math.Sub(v.Local.iCount,1,v.Local.iCount)
+				Gui.F_Information.GsGcDrContacts.FocusCell("DrContactsGrid",v.Local.iCount,0)
+			f.Intrinsic.Control.Case("DELETE")
+				f.Data.DataTable.AcceptChanges("DrContacts")
+				Gui.F_Information.GsGcDrContacts.GetSelectedRows("DrContactsGrid",v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+					f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+					f.Intrinsic.String.SortDesc(v.Local.sRet,v.Local.sRet)
+					f.Intrinsic.Control.For(v.Local.iCount,v.Local.sRet.UBound)
+						f.Data.DataTable.DeleteRow("DrContacts",v.DataView.DrContacts!DrContactsView(v.Local.sRet(v.Local.iCount).Long).DataTableIndex)
+					f.Intrinsic.Control.Next(v.Local.iCount)
+					f.Data.DataTable.AcceptChanges("DrContacts")
+				f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndSelect
+	f.Intrinsic.Control.Case("CTXCOMMENTS")
+		f.Intrinsic.Control.SelectCase(v.Args.ItemName)
+			f.Intrinsic.Control.Case("ADD")
+				f.Data.DataTable.AddRow("DrComments","IDENT",v.Global.iIdent,"Date",v.Ambient.Date)
+				Gui.F_Information.GsGcDrComments.GetRowCount("DrCommentsGrid",v.Local.iCount)
+				f.Intrinsic.Math.Sub(v.Local.iCount,1,v.Local.iCount)
+				Gui.F_Information.GsGcDrComments.FocusCell("DrCommentsGrid",v.Local.iCount,1)
+			f.Intrinsic.Control.Case("DELETE")
+				f.Data.DataTable.AcceptChanges("DrComments")
+				Gui.F_Information.GsGcDrComments.GetSelectedRows("DrCommentsGrid",v.Local.sRet)
+				f.Intrinsic.Control.If(v.Local.sRet,<>,"")
+					f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+					f.Intrinsic.String.SortDesc(v.Local.sRet,v.Local.sRet)
+					f.Intrinsic.Control.For(v.Local.iCount,v.Local.sRet.UBound)
+						f.Data.DataTable.DeleteRow("DrComments",v.DataView.DrComments!DrCommentsView(v.Local.sRet(v.Local.iCount).Long).DataTableIndex)
+					f.Intrinsic.Control.Next(v.Local.iCount)
+					f.Data.DataTable.AcceptChanges("DrComments")
+				f.Intrinsic.Control.EndIf
+		f.Intrinsic.Control.EndSelect
+f.Intrinsic.Control.EndSelect
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.MenuClick.End
+
+Program.Sub.cmdSave_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sSQL.Declare(String)
+v.Local.sRet.Declare(String)
+v.Local.sDrGui.Declare(String)
+v.Local.sDrFields.Declare(String)
+v.Local.iCount.Declare(Long)
+v.Local.sHold1.Declare(String)
+v.Local.sHold2.Declare(String)
+
+
+'Set up values
+'f.Intrinsic.String.Split("txtDrFName*!*txtDrMName*!*txtDrLName*!*txtDrMPhone*!*txtDrAddress1L1*!*txtDrAddress1L2*!*txtDrCity1*!*txtDrState1*!*txtDrZip1*!*txtDrCountry1*!*txtDrAddress2L1*!*txtDrAddress2L2*!*txtDrCity2*!*txtDrState2*!*txtDrZip2*!*txtDrCountry2*!*txtDrTitle","*!*",v.Local.sDrGUI)
+'f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*ADDRESS2L1*!*ADDRESS2L2*!*CITY2*!*STATE2*!*ZIP_CODE2*!*COUNTRY2*!*TITLE","*!*",v.Local.sDrFields)
+f.Intrinsic.String.Split("txtDrFName*!*txtDrMName*!*txtDrLName*!*txtDrMPhone*!*txtDrAddress1L1*!*txtDrAddress1L2*!*txtDrCity1*!*txtDrState1*!*txtDrZip1*!*txtDrCountry1*!*txtDrAddress2L1*!*txtDrAddress2L2*!*txtDrCity2*!*txtDrState2*!*txtDrZip2*!*txtDrCountry2*!*txtDrTitle*!*chkNoDollars","*!*",v.Local.sDrGUI)
+f.Intrinsic.String.Split("FNAME*!*MNAME*!*LNAME*!*PHONE*!*ADDRESS1L1*!*ADDRESS1L2*!*CITY1*!*STATE1*!*ZIP_CODE1*!*COUNTRY1*!*ADDRESS2L1*!*ADDRESS2L2*!*CITY2*!*STATE2*!*ZIP_CODE2*!*COUNTRY2*!*TITLE*!*QUOTE_WITH","*!*",v.Local.sDrFields)
+'Save Doctor First
+f.Intrinsic.Control.If(v.Global.iIdent,>,-1)
+	f.Intrinsic.String.Build("SELECT * FROM GCG_4779_DOCTOR WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+f.Intrinsic.Control.Else
+	'Create a new IDENT
+	f.Intrinsic.String.Build("SELECT * FROM GCG_4779_DOCTOR WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+	f.ODBC.Connection!Con.OpenLocalRecordSetRW("rstDr",v.Local.sSQL)
+	f.ODBC.Con!rstDr.AddNew
+	f.ODBC.Con!rstDr.Update
+	f.ODBC.Con!rstDr.Close
+	'Get the new IDENT
+	f.ODBC.Connection!Con.GetId("GCG_4779_DOCTOR","IDENT",False,v.Global.iIdent)
+	f.Intrinsic.String.Build("SELECT * FROM GCG_4779_DOCTOR WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+f.Intrinsic.Control.EndIf
+f.ODBC.Connection!Con.OpenLocalRecordsetRW("rstDr",v.Local.sSQL)
+'Save the info
+f.Intrinsic.Control.For(v.Local.iCount,v.Local.sDrGUI.UBound)
+	v.Local.sHold1.Set(v.Local.sDrGUI(v.Local.iCount))
+	v.Local.sHold2.Set(v.Local.sDrFields(v.Local.iCount))
+	F.Intrinsic.Control.If(V.Local.sHold1,=,"chkNoDollars")
+		F.Intrinsic.Control.If(V.Screen.F_Information!chkWithDollars.Value,=,1)
+			f.ODBC.Con!rstDr.Set![v.Local.sHold2](1)
+		F.Intrinsic.Control.Else
+			f.ODBC.Con!rstDr.Set![v.Local.sHold2](0)
+		F.Intrinsic.Control.EndIf
+	F.Intrinsic.Control.Else
+		f.ODBC.Con!rstDr.Set![v.Local.sHold2](v.Screen.F_Information![v.Local.sHold1].Text)
+	F.Intrinsic.Control.EndIf
+	f.ODBC.Con!rstDr.Update
+f.Intrinsic.Control.Next(v.Local.iCount)
+'Set the Preferences 
+Gui.F_Information.lvwDrPref.RetrieveAllListItems(v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***NORETURN***")
+	f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+	f.Intrinsic.String.Join(v.Local.sRet,v.Ambient.NewLine,v.Local.sRet)
+f.Intrinsic.Control.Else
+	v.Local.sRet.Set(" ")
+f.Intrinsic.Control.EndIf
+f.ODBC.Con!rstDr.Set!PREF(v.Local.sRet)
+f.ODBC.Con!rstDr.Update
+f.ODBC.Con!rstDr.Set!INACTIVEFLG(v.Screen.F_Information!chkInactive.Value.Long)
+f.ODBC.Con!rstDr.Update
+f.ODBC.Con!rstDr.Close
+
+
+'Save the Grids
+f.Intrinsic.String.Build("DELETE FROM GCG_4779_CONTACTS WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+f.ODBC.Connection!Con.Execute(v.Local.sSQL)
+f.Data.DataTable.SetValue("DrContacts",-1,"IDENT",v.Global.iIdent)
+f.Data.DataTable.SaveToDB("DrContacts","Con","GCG_4779_CONTACTS","IDENT",128,"Quote_SO@!@QUOTE_SO*!*IDENT@!@IDENT*!*NAME@!@CNAME*!*TITLE@!@TITLE*!*EMAIL@!@EMAIL*!*PHONE@!@PHONE")
+
+f.Intrinsic.String.Build("DELETE FROM GCG_4779_COMMENTS WHERE IDENT = '{0}' ",v.Global.iIdent,v.Local.sSQL)
+f.ODBC.Connection!Con.Execute(v.Local.sSQL)
+f.Data.DataTable.SetValue("DrComments",-1,"IDENT",v.Global.iIdent)
+f.Data.DataTable.SaveToDB("DrComments","Con","GCG_4779_COMMENTS","IDENT",128,"IDENT@!@IDENT*!*DATE@!@CDATE*!*COMMENTS@!@COMMENTS")
+
+f.Intrinsic.Control.CallSub(cmdNew_Click)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdSave_Click.End
+
+Program.Sub.cmdBrow_Click.Start
+F.Intrinsic.Control.Try
+
+v.Local.sRet.Declare(String)
+
+f.Intrinsic.UI.Browser("Doctor","Con","SELECT FNAME, MNAME, LNAME, CITY1, STATE1, COUNTRY1, IDENT FROM GCG_4779_DOCTOR ORDER BY FNAME, MNAME, LNAME ","First Name*!*MI*!*Last Name*!*City*!*State*!*Country*!*","800*!*100*!*800*!*200*!*100*!*200*!*0",v.Local.sRet)
+f.Intrinsic.Control.If(v.Local.sRet,<>,"***CANCEL***")
+	Gui.F_Information..Visible(False)
+	
+	f.Intrinsic.String.Split(v.Local.sRet,"*!*",v.Local.sRet)
+	v.Local.sRet.RedimPreserve(0,6)
+	v.Global.iIdent.Set(v.Local.sRet(6).Long)
+	
+	'Populate the Screen
+	f.Intrinsic.Control.CallSub(Populate)
+	'Populate Grids
+	f.Intrinsic.Control.CallSub(CreateDatatables)
+	
+	Gui.F_Information..Show
+f.Intrinsic.Control.EndIf
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdBrow_Click.End
+
+Program.Sub.cmdNew_Click.Start
+F.Intrinsic.Control.Try
+
+v.Global.iIdent.Set(-1)
+'Populate the Screen
+f.Intrinsic.Control.CallSub(Populate)
+'Populate Grids
+f.Intrinsic.Control.CallSub(CreateDatatables)
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.cmdNew_Click.End
+
+Program.Sub.chkWithDollars_Click.Start
+F.Intrinsic.Control.Try
+
+V.Local.iVal.Declare(Long)
+
+F.Intrinsic.Control.BlockEvents
+
+F.Intrinsic.Control.If(V.Screen.F_Information!chkWithDollars.Value,=,1)
+	V.Local.iVal.Set(0)
+F.Intrinsic.Control.Else
+	V.Local.iVal.Set(1)
+F.Intrinsic.Control.EndIf
+
+Gui.F_Information.chkNoDollars.Value(V.Local.iVal)
+
+F.Intrinsic.Control.UnBlockEvents
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.chkWithDollars_Click.End
+
+Program.Sub.chkNoDollars_Click.Start
+F.Intrinsic.Control.Try
+
+V.Local.iVal.Declare(Long)
+
+F.Intrinsic.Control.BlockEvents
+
+F.Intrinsic.Control.If(V.Screen.F_Information!chkNoDollars.Value,=,1)
+	V.Local.iVal.Set(0)
+F.Intrinsic.Control.Else
+	V.Local.iVal.Set(1)
+F.Intrinsic.Control.EndIf
+
+Gui.F_Information.chkWithDollars.Value(V.Local.iVal)
+
+F.Intrinsic.Control.UnBlockEvents
+
+F.Intrinsic.Control.Catch
+	F.Intrinsic.Control.CallSub(TryCatch,"Sub",V.Ambient.CurrentSubroutine,"Error",V.Ambient.ErrorNumber,"Desc",V.Ambient.ErrorDescription)
+F.Intrinsic.Control.EndTry
+Program.Sub.chkNoDollars_Click.End
